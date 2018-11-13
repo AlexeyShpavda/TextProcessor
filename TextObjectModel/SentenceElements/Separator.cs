@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Interfaces.TextObjectModel.SentenceElements;
 
@@ -24,6 +25,21 @@ namespace TextObjectModel.SentenceElements
         public static bool IsEndPunctuationSeparator(string str)
         {
             return EndPunctuationSeparators.Any(separator => separator == str);
+        }
+
+        public static bool IsExclamationMark(string str)
+        {
+            return str.Contains('!');
+        }
+
+        public static bool IsQuestionMark(string str)
+        {
+            return str.Contains('?');
+        }
+
+        public static bool IsDeclarativeSentence(string str)
+        {
+            return str.Contains('.');
         }
 
         public override string ToString()

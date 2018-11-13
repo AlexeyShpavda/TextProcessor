@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using Interfaces.SyntacticalAnalyzer;
 using Interfaces.TextObjectModel;
+using Interfaces.TextObjectModel.Sentences.Enums;
 using TextObjectModel;
 using TextObjectModel.SentenceElements;
 using TextObjectModel.Sentences;
@@ -27,11 +28,27 @@ namespace SyntacticalAnalyzer
 
                     sentence.Add(new Separator(match.Groups[2].ToString()));
 
-                    if (Separator.IsEndPunctuationSeparator(match.Groups[2].ToString()))
+                    if (!Separator.IsEndPunctuationSeparator(match.Groups[2].ToString())) continue;
+
+                    if (Separator.IsQuestionMark(match.Groups[2].ToString()))
                     {
-                        text.Add(sentence);
-                        sentence = new Sentence();
+                        sentence.SentenceTypes.Add(SentenceType.InterrogativeSentence);
                     }
+
+
+                    if (Separator.IsDeclarativeSentence(match.Groups[2].ToString()))
+                    {
+                        sentence.SentenceTypes.Add(SentenceType.DeclarativeSentence);
+                    }
+
+
+                    if (Separator.IsExclamationMark(match.Groups[2].ToString()))
+                    {
+                        sentence.SentenceTypes.Add(SentenceType.ExclamatorySentence);
+                    }
+
+                    text.Add(sentence);
+                    sentence = new Sentence();
                 }
             }
 

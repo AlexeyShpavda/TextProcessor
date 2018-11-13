@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences;
+using Interfaces.TextObjectModel.Sentences.Enums;
 
 namespace TextObjectModel.Sentences
 {
@@ -12,9 +13,12 @@ namespace TextObjectModel.Sentences
     {
         private ICollection<ISentenceElement> SentenceElements { get; set; }
 
+        public ICollection<SentenceType> SentenceTypes { get; set; }
+
         public Sentence()
         {
             SentenceElements = new Collection<ISentenceElement>();
+            SentenceTypes = new Collection<SentenceType>();
         }
 
         public void Add(ISentenceElement element)
