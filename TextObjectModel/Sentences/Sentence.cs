@@ -26,6 +26,11 @@ namespace TextObjectModel.Sentences
             SentenceElements.Add(element);
         }
 
+        public void Remove<T>(Predicate<T> predicate) where T : ISentenceElement
+        {
+            SentenceElements = SentenceElements.Where(x => !(x is T t && predicate(t))).ToList();
+        }
+
         public ICollection<T> GetElements<T>(Func<T, bool> selector = null) where T : ISentenceElement
         {
             return selector == null

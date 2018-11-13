@@ -27,7 +27,7 @@ namespace UserInterface
 
 
             //T1
-            var sortedSentences = text.SortSentencesDescending<IWord>();
+            var sortedSentences = text.SortSentencesAscending<IWord>();
 
             foreach (var sentence in sortedSentences)
             {
@@ -43,6 +43,18 @@ namespace UserInterface
             foreach (var word in words)
             {
                 Console.WriteLine(word);
+            }
+
+            //T3
+            var wordLength2 = 3;
+            foreach (var item in text.GetSentences())
+            {
+                item.Remove<IWord>(x => x.Length == wordLength2 && x.StartWithConsonant());
+            }
+
+            foreach (var sentence in text.GetSentences())
+            {
+                Console.WriteLine(sentence);
             }
 
             Console.ReadKey();

@@ -7,10 +7,12 @@ namespace Interfaces.TextObjectModel.Sentences
 {
     public interface ISentence
     {
+        ICollection<SentenceType> SentenceTypes { get; set; }
+
         void Add(ISentenceElement element);
 
-        ICollection<T> GetElements<T>(Func<T, bool> selector = null) where T : ISentenceElement;
+        void Remove<T>(Predicate<T> predicate) where T : ISentenceElement;
 
-        ICollection<SentenceType> SentenceTypes { get; set; }
+        ICollection<T> GetElements<T>(Func<T, bool> selector = null) where T : ISentenceElement;
     }
 }
