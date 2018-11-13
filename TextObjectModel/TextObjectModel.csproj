@@ -39,7 +39,6 @@
     <Compile Include="Sentences\Sentence.cs" />
     <Compile Include="SentenceElements\Separator.cs" />
     <Compile Include="Text.cs" />
-    <Compile Include="SentenceElements\SentenceElement.cs" />
     <Compile Include="SentenceElements\Word.cs" />
   </ItemGroup>
   <ItemGroup>

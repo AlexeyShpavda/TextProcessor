@@ -39,7 +39,7 @@
     <Compile Include="SyntacticalAnalyzer\ITextParser.cs" />
     <Compile Include="TextObjectModel\ISentence.cs" />
     <Compile Include="TextObjectModel\IText.cs" />
-    <Compile Include="TextObjectModel\IToken.cs" />
+    <Compile Include="TextObjectModel\ISentenceElement.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

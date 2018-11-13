@@ -1,6 +1,6 @@
 ﻿namespace Interfaces.TextObjectModel
 {
-    public interface IToken
+    public interface ISentenceElement
     {
     }
 }
