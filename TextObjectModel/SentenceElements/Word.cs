@@ -11,6 +11,8 @@ namespace TextObjectModel.SentenceElements
             Chars = str;
         }
 
+        public int Length => Chars.Length;
+
         public override string ToString()
         {
             return Chars;

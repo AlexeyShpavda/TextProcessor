@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -22,9 +23,9 @@ namespace TextObjectModel
             Sentences.Add(sentence);
         }
 
-        public ICollection<ISentence> GetSentences()
+        public ICollection<ISentence> GetSentences(Func<ISentence, bool> selector = null)
         {
-            return Sentences;
+            return selector == null ? Sentences : Sentences.Where(selector).ToList();
         }
 
         public ICollection<ISentence> SortSentencesAscending<T>() where T : ISentenceElement

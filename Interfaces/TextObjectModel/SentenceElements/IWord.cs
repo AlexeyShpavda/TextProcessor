@@ -2,5 +2,6 @@
 {
     public interface IWord : ISentenceElement
     {
+        int Length { get; }
     }
 }

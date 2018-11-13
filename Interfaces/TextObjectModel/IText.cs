@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences;
 
@@ -8,7 +9,7 @@ namespace Interfaces.TextObjectModel
     {
         void Add(ISentence sentence);
 
-        ICollection<ISentence> GetSentences();
+        ICollection<ISentence> GetSentences(Func<ISentence, bool> selector = null);
 
         ICollection<ISentence> SortSentencesAscending<T>() where T : ISentenceElement;
 
