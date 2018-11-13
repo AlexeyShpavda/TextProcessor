@@ -26,6 +26,27 @@ namespace TextObjectModel.SentenceElements
             return !StartWithVowel();
         }
 
+        public static bool operator ==(Word word1, Word word2)
+        {
+            return word1 != null && word2 != null && string.Equals(word1.ToString(), word2.ToString(),
+                       StringComparison.CurrentCultureIgnoreCase);
+        }
+
+        public static bool operator !=(Word word1, Word word2)
+        {
+            return !(word1 == word2);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return this == (Word) obj;
+        }
+
+        public override int GetHashCode()
+        {
+            return ToString().ToLower().GetHashCode();
+        }
+
         public override string ToString()
         {
             return Chars;
