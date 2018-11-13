@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +43,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+      <Project>{d3ebd45d-e73a-48b0-86dd-614c2a776e38}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SyntacticalAnalyzer\SyntacticalAnalyzer.csproj">
+      <Project>{2abab4e7-47c2-4885-93e7-d5f39f9a877d}</Project>
+      <Name>SyntacticalAnalyzer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextObjectModel\TextObjectModel.csproj">
+      <Project>{9d838415-27c6-4798-8b9a-fee2d8b6b3c7}</Project>
+      <Name>TextObjectModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

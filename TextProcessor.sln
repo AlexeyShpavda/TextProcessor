@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfaces", "Interfaces\In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextObjectModel", "TextObjectModel\TextObjectModel.csproj", "{9D838415-27C6-4798-8B9A-FEE2D8B6B3C7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{7AED3C68-9719-4787-8B20-E7F17A0C84ED}"
+	ProjectSection(SolutionItems) = preProject
+		Files\1.txt = Files\1.txt
+		Files\2.txt = Files\2.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
