@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using Interfaces.TextObjectModel.SentenceElements;
 using SyntacticalAnalyzer;
 
 namespace UserInterface
@@ -18,6 +19,13 @@ namespace UserInterface
             //Console.WriteLine(text);
 
             foreach (var sentence in text.GetSentences())
+            {
+                Console.WriteLine(sentence);
+            }
+
+            var sortedSentences = text.SortSentencesDescending<IWord>();
+
+            foreach (var sentence in sortedSentences)
             {
                 Console.WriteLine(sentence);
             }

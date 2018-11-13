@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using Interfaces.TextObjectModel;
+using Interfaces.TextObjectModel.SentenceElements;
+using Interfaces.TextObjectModel.Sentences;
 
 namespace TextObjectModel
 {
@@ -22,6 +25,16 @@ namespace TextObjectModel
         public ICollection<ISentence> GetSentences()
         {
             return Sentences;
+        }
+
+        public ICollection<ISentence> SortSentencesAscending<T>() where T : ISentenceElement
+        {
+            return Sentences.OrderBy(x => x.GetElements<T>().Count).ToList();
+        }
+
+        public ICollection<ISentence> SortSentencesDescending<T>() where T : ISentenceElement
+        {
+            return Sentences.OrderByDescending(x => x.GetElements<T>().Count).ToList();
         }
 
         public override string ToString()

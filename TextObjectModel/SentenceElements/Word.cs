@@ -1,10 +1,10 @@
-﻿using Interfaces.TextObjectModel;
+﻿using Interfaces.TextObjectModel.SentenceElements;
 
 namespace TextObjectModel.SentenceElements
 {
-    public class Word : ISentenceElement
+    public class Word : IWord
     {
-        public string Chars { get; private set; }
+        public string Chars { get; set; }
 
         public Word(string str)
         {

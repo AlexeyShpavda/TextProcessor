@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Text.RegularExpressions;
-using Interfaces.TextObjectModel;
+using Interfaces.TextObjectModel.SentenceElements;
 
 namespace TextObjectModel.SentenceElements
 {
-    public class Separator : ISentenceElement
+    public class Separator : ISeparator
     {
         public static string[] EndPunctuationSeparators { get; } = {"... ", "! ", ". ", "? ", "?! ", "!? "};
 
@@ -13,7 +13,7 @@ namespace TextObjectModel.SentenceElements
         public string Chars
         {
             get => _chars;
-            private set => _chars = Regex.Replace(value, "[\f\n\r\t\v]", " ");
+            set => _chars = Regex.Replace(value, "[\f\n\r\t\v]", " ");
         }
 
         public Separator(string str)

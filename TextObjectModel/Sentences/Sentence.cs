@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
-using Interfaces.TextObjectModel;
+using Interfaces.TextObjectModel.SentenceElements;
+using Interfaces.TextObjectModel.Sentences;
 
 namespace TextObjectModel.Sentences
 {
@@ -17,6 +20,13 @@ namespace TextObjectModel.Sentences
         public void Add(ISentenceElement element)
         {
             SentenceElements.Add(element);
+        }
+
+        public ICollection<T> GetElements<T>(Func<T, bool> selector = null) where T : ISentenceElement
+        {
+            return selector == null
+                ? SentenceElements.OfType<T>().ToList()
+                : SentenceElements.OfType<T>().Where(selector).ToList();
         }
 
         public override string ToString()
