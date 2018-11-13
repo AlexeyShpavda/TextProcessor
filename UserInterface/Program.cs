@@ -15,6 +15,13 @@ namespace UserInterface
             var textParser = new TextParser();
             var text = textParser.Parse(streamReader);
 
+            //Console.WriteLine(text);
+
+            foreach (var sentence in text.GetSentences())
+            {
+                Console.WriteLine(sentence);
+            }
+
             Console.ReadKey();
         }
     }

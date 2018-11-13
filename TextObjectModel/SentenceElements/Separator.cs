@@ -25,5 +25,10 @@ namespace TextObjectModel.SentenceElements
         {
             return EndPunctuationSeparators.Any(separator => separator == str);
         }
+
+        public override string ToString()
+        {
+            return Chars;
+        }
     }
 }

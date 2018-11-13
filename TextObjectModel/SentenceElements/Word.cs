@@ -10,5 +10,10 @@ namespace TextObjectModel.SentenceElements
         {
             Chars = str;
         }
+
+        public override string ToString()
+        {
+            return Chars;
+        }
     }
 }
