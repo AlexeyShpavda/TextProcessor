@@ -7,7 +7,6 @@ using Interfaces.TextObjectModel;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences;
 using Interfaces.TextObjectModel.Sentences.Enums;
-using TextObjectModel.Sentences;
 
 namespace TextObjectModel
 {

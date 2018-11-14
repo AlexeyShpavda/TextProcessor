@@ -49,7 +49,7 @@ namespace TextObjectModel.Sentences
 
             foreach (var element in SentenceElements)
             {
-                if (element is IWord && predicate(element as IWord))
+                if (element is IWord word && predicate(word))
                 {
                     newSentence.AddRange(sentenceElements);
                     continue;
