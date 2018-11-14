@@ -6,7 +6,9 @@ namespace TextObjectModel.SentenceElements
 {
     public class Separator : ISeparator
     {
-        public static string[] EndPunctuationSeparators { get; } = {"... ", "! ", ". ", "? ", "?! ", "!? "};
+        public static string[] SentenceSeparators { get; } = {"... ", "! ", ". ", "? ", "?! ", "!? "};
+
+        public static string[] WordSeparators { get; } = {", ", "; ", ": "};
 
         private string _chars;
 
@@ -21,9 +23,14 @@ namespace TextObjectModel.SentenceElements
             Chars = str;
         }
 
-        public static bool IsEndPunctuationSeparator(string str)
+        public static bool IsSentenceSeparator(string str)
         {
-            return EndPunctuationSeparators.Any(separator => separator == str);
+            return SentenceSeparators.Any(separator => separator == str);
+        }
+
+        public static bool IsWordSeparator(string str)
+        {
+            return WordSeparators.Any(separator => separator == str);
         }
 
         public static bool IsExclamationMark(string str)

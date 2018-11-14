@@ -15,6 +15,8 @@ namespace TextObjectModel.Sentences
 
         public ICollection<SentenceType> SentenceTypes { get; set; }
 
+        public TypeOfComplicatingStructures TypeOfComplicatingStructures { get; set; }
+
         public Sentence()
         {
             SentenceElements = new Collection<ISentenceElement>();
