@@ -25,16 +25,19 @@ namespace UserInterface
             Console.WriteLine("<======================= Task1 ========================>");
 
             #region Realization
+
             var sortedSentences = text.SortSentencesAscending<IWord>();
             foreach (var sentence in sortedSentences)
             {
                 Console.WriteLine(sentence);
             }
+
             #endregion
 
             Console.WriteLine("<======================= Task2 ========================>");
 
             #region Realization
+
             var wordLength = 5;
             var words = text.GetWordsFromSentences(SentenceType.InterrogativeSentence, wordLength);
             foreach (var word in words)
@@ -47,6 +50,7 @@ namespace UserInterface
             Console.WriteLine("<======================= Task3 ========================>");
 
             #region Realization
+
             var wordLength2 = 5;
             text.DeleteWordsStartingWithConsonant(wordLength2);
 
@@ -55,15 +59,25 @@ namespace UserInterface
                 sentence.SentenceUpdate(textParser.Parse(sentence.ToString()).GetElements<ISentenceElement>());
                 Console.WriteLine(sentence);
             }
+
             #endregion
 
             Console.WriteLine("<======================= Task4 ========================>");
 
             #region Realization
+
+            var sentenceNumber = 1;
+            var wordLength3 = 4;
+            text.ReplacesWordsInSentenceWithSubstring(sentenceNumber, wordLength3,
+                textParser.Parse("peck, beak peck").GetElements<ISentenceElement>());
+            text.GetSentenceByIndex(sentenceNumber - 1).SentenceUpdate(textParser
+                .Parse(text.GetSentenceByIndex(sentenceNumber - 1).ToString()).GetElements<ISentenceElement>());
+
             foreach (var sentence in text.GetSentences())
             {
                 Console.WriteLine(sentence);
             }
+
             #endregion
 
             Console.ReadKey();

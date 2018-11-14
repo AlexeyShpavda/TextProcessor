@@ -12,6 +12,8 @@ namespace Interfaces.TextObjectModel
 
         ICollection<ISentence> GetSentences(Func<ISentence, bool> selector = null);
 
+        ISentence GetSentenceByIndex(int index);
+
         ICollection<ISentence> SortSentencesAscending<T>() where T : ISentenceElement;
 
         ICollection<ISentence> SortSentencesDescending<T>() where T : ISentenceElement;
@@ -19,5 +21,8 @@ namespace Interfaces.TextObjectModel
         IEnumerable<IWord> GetWordsFromSentences(SentenceType sentenceType, int wordLength);
 
         void DeleteWordsStartingWithConsonant(int wordLength);
+
+        void ReplacesWordsInSentenceWithSubstring(int sentenceNumber, int wordLength,
+            ICollection<ISentenceElement> sentenceElements);
     }
 }

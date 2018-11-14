@@ -43,6 +43,24 @@ namespace TextObjectModel.Sentences
             SentenceElements = sentenceElements;
         }
 
+        public void ReplaceWord(Predicate<IWord> predicate, ICollection<ISentenceElement> sentenceElements)
+        {
+            var newSentence = new List<ISentenceElement>();
+
+            foreach (var element in SentenceElements)
+            {
+                if (element is IWord && predicate(element as IWord))
+                {
+                    newSentence.AddRange(sentenceElements);
+                    continue;
+                }
+
+                newSentence.Add(element);
+            }
+
+            SentenceUpdate(newSentence);
+        }
+
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();

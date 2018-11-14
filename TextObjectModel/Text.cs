@@ -7,12 +7,13 @@ using Interfaces.TextObjectModel;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences;
 using Interfaces.TextObjectModel.Sentences.Enums;
+using TextObjectModel.Sentences;
 
 namespace TextObjectModel
 {
     public class Text : IText
     {
-        private ICollection<ISentence> Sentences { get; set; }
+        private IList<ISentence> Sentences { get; set; }
 
         public Text()
         {
@@ -27,6 +28,11 @@ namespace TextObjectModel
         public ICollection<ISentence> GetSentences(Func<ISentence, bool> selector = null)
         {
             return selector == null ? Sentences : Sentences.Where(selector).ToList();
+        }
+
+        public ISentence GetSentenceByIndex(int index)
+        {
+            return Sentences[index];
         }
 
         public ICollection<ISentence> SortSentencesAscending<T>() where T : ISentenceElement
@@ -51,6 +57,13 @@ namespace TextObjectModel
             {
                 sentence.Remove<IWord>(x => x.Length == wordLength && x.StartWithConsonant());
             }
+        }
+
+        public void ReplacesWordsInSentenceWithSubstring(int sentenceNumber, int wordLength,
+            ICollection<ISentenceElement> sentenceElements)
+        {
+            var sentenceIndex = sentenceNumber - 1;
+            Sentences[sentenceIndex].ReplaceWord(x => x.Length == wordLength, sentenceElements);
         }
 
         public override string ToString()

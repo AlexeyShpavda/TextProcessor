@@ -16,5 +16,7 @@ namespace Interfaces.TextObjectModel.Sentences
         ICollection<T> GetElements<T>(Func<T, bool> selector = null) where T : ISentenceElement;
 
         void SentenceUpdate(ICollection<ISentenceElement> sentenceElements);
+
+        void ReplaceWord(Predicate<IWord> predicate, ICollection<ISentenceElement> sentenceElements);
     }
 }
