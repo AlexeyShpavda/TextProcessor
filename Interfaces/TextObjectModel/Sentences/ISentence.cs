@@ -9,6 +9,8 @@ namespace Interfaces.TextObjectModel.Sentences
     {
         ICollection<SentenceType> SentenceTypes { get; set; }
 
+        TypeOfComplicatingStructures TypeOfComplicatingStructures { get; set; }
+
         void Add(ISentenceElement element);
 
         void Remove<T>(Predicate<T> predicate) where T : ISentenceElement;

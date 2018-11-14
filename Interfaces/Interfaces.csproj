@@ -40,6 +40,7 @@
     <Compile Include="TextObjectModel\SentenceElements\ISeparator.cs" />
     <Compile Include="TextObjectModel\SentenceElements\IWord.cs" />
     <Compile Include="TextObjectModel\Sentences\Enums\SentenceType.cs" />
+    <Compile Include="TextObjectModel\Sentences\Enums\TypeOfComplicatingStructures.cs" />
     <Compile Include="TextObjectModel\Sentences\ISentence.cs" />
     <Compile Include="TextObjectModel\IText.cs" />
     <Compile Include="TextObjectModel\SentenceElements\ISentenceElement.cs" />
