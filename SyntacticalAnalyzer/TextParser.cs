@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using Interfaces.SyntacticalAnalyzer;
 using Interfaces.TextObjectModel;
+using Interfaces.TextObjectModel.Sentences;
 using Interfaces.TextObjectModel.Sentences.Enums;
 using TextObjectModel;
 using TextObjectModel.SentenceElements;
@@ -53,6 +54,25 @@ namespace SyntacticalAnalyzer
             }
 
             return text;
+        }
+
+        public ISentence Parse(string inputLine)
+        {
+            const string pattern = @"\b(\w+)((\p{P}{0,3})\s?)";
+
+            var sentence = new Sentence();
+
+            var line = inputLine;
+
+            line = string.Concat(line, " ");
+            foreach (Match match in Regex.Matches(line, pattern))
+            {
+                sentence.Add(new Word(match.Groups[1].ToString()));
+
+                sentence.Add(new Separator(match.Groups[2].ToString()));
+            }
+
+            return sentence;
         }
     }
 }

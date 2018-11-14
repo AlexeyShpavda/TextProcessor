@@ -47,11 +47,12 @@ namespace UserInterface
             Console.WriteLine("<======================= Task3 ========================>");
 
             #region Realization
-            var wordLength2 = 3;
+            var wordLength2 = 5;
             text.DeleteWordsStartingWithConsonant(wordLength2);
 
             foreach (var sentence in text.GetSentences())
             {
+                sentence.SentenceUpdate(textParser.Parse(sentence.ToString()).GetElements<ISentenceElement>());
                 Console.WriteLine(sentence);
             }
             #endregion
@@ -59,7 +60,10 @@ namespace UserInterface
             Console.WriteLine("<======================= Task4 ========================>");
 
             #region Realization
-
+            foreach (var sentence in text.GetSentences())
+            {
+                Console.WriteLine(sentence);
+            }
             #endregion
 
             Console.ReadKey();

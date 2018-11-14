@@ -38,6 +38,11 @@ namespace TextObjectModel.Sentences
                 : SentenceElements.OfType<T>().Where(selector).ToList();
         }
 
+        public void SentenceUpdate(ICollection<ISentenceElement> sentenceElements)
+        {
+            SentenceElements = sentenceElements;
+        }
+
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();

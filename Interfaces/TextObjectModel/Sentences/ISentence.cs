@@ -14,5 +14,7 @@ namespace Interfaces.TextObjectModel.Sentences
         void Remove<T>(Predicate<T> predicate) where T : ISentenceElement;
 
         ICollection<T> GetElements<T>(Func<T, bool> selector = null) where T : ISentenceElement;
+
+        void SentenceUpdate(ICollection<ISentenceElement> sentenceElements);
     }
 }
