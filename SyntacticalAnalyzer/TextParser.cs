@@ -19,36 +19,45 @@ namespace SyntacticalAnalyzer
             var text = new Text();
             var sentence = new Sentence();
 
-            string fileLine;
-            while ((fileLine = streamReader.ReadLine()) != null)
+            try
             {
-                fileLine = string.Concat(fileLine, " ");
-                foreach (Match match in Regex.Matches(fileLine, Pattern))
+                string fileLine;
+                while ((fileLine = streamReader.ReadLine()) != null)
                 {
-                    AddWordWithSeparatorToSentence(sentence, match.Groups[1].ToString(), match.Groups[2].ToString());
+                    fileLine = string.Concat(fileLine, " ");
 
-                    if (!Separator.IsEndPunctuationSeparator(match.Groups[2].ToString())) continue;
+                    var isTypeOfComplicatedStructureDefined = false;
 
-                    if (Separator.IsQuestionMark(match.Groups[2].ToString()))
+                    foreach (Match match in Regex.Matches(fileLine, Pattern))
                     {
-                        sentence.SentenceTypes.Add(SentenceType.InterrogativeSentence);
+                        AddWordWithSeparatorToSentence(sentence, match.Groups[1].ToString(),
+                            match.Groups[2].ToString(), ref isTypeOfComplicatedStructureDefined);
+
+                        if (!Separator.IsSentenceSeparator(match.Groups[2].ToString())) continue;
+
+                        if (Separator.IsQuestionMark(match.Groups[2].ToString()))
+                        {
+                            sentence.SentenceTypes.Add(SentenceType.InterrogativeSentence);
+                        }
+
+                        if (Separator.IsDeclarativeSentence(match.Groups[2].ToString()))
+                        {
+                            sentence.SentenceTypes.Add(SentenceType.DeclarativeSentence);
+                        }
+
+                        if (Separator.IsExclamationMark(match.Groups[2].ToString()))
+                        {
+                            sentence.SentenceTypes.Add(SentenceType.ExclamatorySentence);
+                        }
+
+                        text.Add(sentence);
+                        sentence = new Sentence();
                     }
-
-
-                    if (Separator.IsDeclarativeSentence(match.Groups[2].ToString()))
-                    {
-                        sentence.SentenceTypes.Add(SentenceType.DeclarativeSentence);
-                    }
-
-
-                    if (Separator.IsExclamationMark(match.Groups[2].ToString()))
-                    {
-                        sentence.SentenceTypes.Add(SentenceType.ExclamatorySentence);
-                    }
-
-                    text.Add(sentence);
-                    sentence = new Sentence();
                 }
+            }
+            catch (IOException exception)
+            {
+                throw;
             }
 
             return text;
@@ -61,19 +70,36 @@ namespace SyntacticalAnalyzer
             var line = inputLine;
 
             line = string.Concat(line, " ");
+
+            var isTypeOfComplicatedStructureDefined = false;
+
             foreach (Match match in Regex.Matches(line, Pattern))
             {
-                AddWordWithSeparatorToSentence(sentence, match.Groups[1].ToString(), match.Groups[2].ToString());
+                AddWordWithSeparatorToSentence(sentence, match.Groups[1].ToString(), match.Groups[2].ToString(),
+                    ref isTypeOfComplicatedStructureDefined);
             }
 
             return sentence;
         }
 
-        private static void AddWordWithSeparatorToSentence(ISentence sentence, string word, string separator)
+        private static void AddWordWithSeparatorToSentence(ISentence sentence, string word, string separator,
+            ref bool isTypeOfComplicatedStructureDefined)
         {
             sentence.Add(new Word(word));
 
             sentence.Add(new Separator(separator));
+
+            if (isTypeOfComplicatedStructureDefined) return;
+
+            if (Separator.IsWordSeparator(separator))
+            {
+                sentence.TypeOfComplicatingStructures = TypeOfComplicatingStructures.ComplicatedSentence;
+                isTypeOfComplicatedStructureDefined = true;
+            }
+            else
+            {
+                sentence.TypeOfComplicatingStructures = TypeOfComplicatingStructures.UncomplicatedSentence;
+            }
         }
     }
 }
