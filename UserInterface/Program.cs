@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Interfaces.TextObjectModel.SentenceElements;
@@ -18,44 +19,48 @@ namespace UserInterface
             var textParser = new TextParser();
             var text = textParser.Parse(streamReader);
 
-            //Console.WriteLine(text);
+            Console.WriteLine("<==================== Initial Text ====================>");
+            Console.WriteLine(text);
 
-            foreach (var sentence in text.GetSentences())
-            {
-                Console.WriteLine(sentence);
-            }
+            Console.WriteLine("<======================= Task1 ========================>");
 
-
-            //T1
+            #region Realization
             var sortedSentences = text.SortSentencesAscending<IWord>();
-
             foreach (var sentence in sortedSentences)
             {
                 Console.WriteLine(sentence);
             }
+            #endregion
 
-            //T2
-            var wordLength = 3;
-            var words =
-                text.GetSentences(x => x.SentenceTypes.Contains(SentenceType.InterrogativeSentence))
-                    .SelectMany(y => y.GetElements<IWord>(x => x.Length == wordLength)).Distinct();
+            Console.WriteLine("<======================= Task2 ========================>");
 
+            #region Realization
+            var wordLength = 5;
+            var words = text.GetWordsFromSentences(SentenceType.InterrogativeSentence, wordLength);
             foreach (var word in words)
             {
                 Console.WriteLine(word);
             }
+        
+            #endregion
 
-            //T3
+            Console.WriteLine("<======================= Task3 ========================>");
+
+            #region Realization
             var wordLength2 = 3;
-            foreach (var item in text.GetSentences())
-            {
-                item.Remove<IWord>(x => x.Length == wordLength2 && x.StartWithConsonant());
-            }
+            text.DeleteWordsStartingWithConsonant(wordLength2);
 
             foreach (var sentence in text.GetSentences())
             {
                 Console.WriteLine(sentence);
             }
+            #endregion
+
+            Console.WriteLine("<======================= Task4 ========================>");
+
+            #region Realization
+
+            #endregion
 
             Console.ReadKey();
         }

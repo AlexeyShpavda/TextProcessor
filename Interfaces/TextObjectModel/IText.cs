@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences;
+using Interfaces.TextObjectModel.Sentences.Enums;
 
 namespace Interfaces.TextObjectModel
 {
@@ -14,5 +15,9 @@ namespace Interfaces.TextObjectModel
         ICollection<ISentence> SortSentencesAscending<T>() where T : ISentenceElement;
 
         ICollection<ISentence> SortSentencesDescending<T>() where T : ISentenceElement;
+
+        IEnumerable<IWord> GetWordsFromSentences(SentenceType sentenceType, int wordLength);
+
+        void DeleteWordsStartingWithConsonant(int wordLength);
     }
 }

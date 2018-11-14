@@ -28,8 +28,7 @@ namespace TextObjectModel.SentenceElements
 
         public static bool operator ==(Word word1, Word word2)
         {
-            return word1 != null && word2 != null && string.Equals(word1.ToString(), word2.ToString(),
-                       StringComparison.CurrentCultureIgnoreCase);
+            return string.Equals(word1.ToString(), word2.ToString(), StringComparison.CurrentCultureIgnoreCase);
         }
 
         public static bool operator !=(Word word1, Word word2)

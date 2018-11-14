@@ -6,6 +6,7 @@ using System.Text;
 using Interfaces.TextObjectModel;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences;
+using Interfaces.TextObjectModel.Sentences.Enums;
 
 namespace TextObjectModel
 {
@@ -36,6 +37,20 @@ namespace TextObjectModel
         public ICollection<ISentence> SortSentencesDescending<T>() where T : ISentenceElement
         {
             return Sentences.OrderByDescending(x => x.GetElements<T>().Count).ToList();
+        }
+
+        public IEnumerable<IWord> GetWordsFromSentences(SentenceType sentenceType, int wordLength)
+        {
+            return GetSentences(x => x.SentenceTypes.Contains(sentenceType))
+                .SelectMany(y => y.GetElements<IWord>(x => x.Length == wordLength)).Distinct();
+        }
+
+        public void DeleteWordsStartingWithConsonant(int wordLength)
+        {
+            foreach (var sentence in GetSentences())
+            {
+                sentence.Remove<IWord>(x => x.Length == wordLength && x.StartWithConsonant());
+            }
         }
 
         public override string ToString()
