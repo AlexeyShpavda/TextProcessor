@@ -86,13 +86,17 @@ namespace UserInterface
                 #endregion
 
             }
-            catch (ArgumentException ex)
+            catch (ArgumentException argumentException)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(argumentException.Message);
             }
-            catch (IOException ex)
+            catch (IOException ioException)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(ioException.Message);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
             }
 
             Console.ReadKey();

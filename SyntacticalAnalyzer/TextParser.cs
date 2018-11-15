@@ -19,45 +19,38 @@ namespace SyntacticalAnalyzer
             var text = new Text();
             var sentence = new Sentence();
 
-            try
+            string fileLine;
+            while ((fileLine = streamReader.ReadLine()) != null)
             {
-                string fileLine;
-                while ((fileLine = streamReader.ReadLine()) != null)
+                fileLine = string.Concat(fileLine, " ");
+
+                var isTypeOfComplicatedStructureDefined = false;
+
+                foreach (Match match in Regex.Matches(fileLine, Pattern))
                 {
-                    fileLine = string.Concat(fileLine, " ");
+                    AddWordWithSeparatorToSentence(sentence, match.Groups[1].ToString(),
+                        match.Groups[2].ToString(), ref isTypeOfComplicatedStructureDefined);
 
-                    var isTypeOfComplicatedStructureDefined = false;
+                    if (!Separator.IsSentenceSeparator(match.Groups[2].ToString())) continue;
 
-                    foreach (Match match in Regex.Matches(fileLine, Pattern))
+                    if (Separator.IsQuestionMark(match.Groups[2].ToString()))
                     {
-                        AddWordWithSeparatorToSentence(sentence, match.Groups[1].ToString(),
-                            match.Groups[2].ToString(), ref isTypeOfComplicatedStructureDefined);
-
-                        if (!Separator.IsSentenceSeparator(match.Groups[2].ToString())) continue;
-
-                        if (Separator.IsQuestionMark(match.Groups[2].ToString()))
-                        {
-                            sentence.SentenceTypes.Add(SentenceType.InterrogativeSentence);
-                        }
-
-                        if (Separator.IsDeclarativeSentence(match.Groups[2].ToString()))
-                        {
-                            sentence.SentenceTypes.Add(SentenceType.DeclarativeSentence);
-                        }
-
-                        if (Separator.IsExclamationMark(match.Groups[2].ToString()))
-                        {
-                            sentence.SentenceTypes.Add(SentenceType.ExclamatorySentence);
-                        }
-
-                        text.Add(sentence);
-                        sentence = new Sentence();
+                        sentence.SentenceTypes.Add(SentenceType.InterrogativeSentence);
                     }
+
+                    if (Separator.IsDeclarativeSentence(match.Groups[2].ToString()))
+                    {
+                        sentence.SentenceTypes.Add(SentenceType.DeclarativeSentence);
+                    }
+
+                    if (Separator.IsExclamationMark(match.Groups[2].ToString()))
+                    {
+                        sentence.SentenceTypes.Add(SentenceType.ExclamatorySentence);
+                    }
+
+                    text.Add(sentence);
+                    sentence = new Sentence();
                 }
-            }
-            catch (IOException exception)
-            {
-                throw;
             }
 
             return text;
