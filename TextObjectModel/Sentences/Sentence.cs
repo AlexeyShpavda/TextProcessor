@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -27,17 +26,20 @@ namespace TextObjectModel.Sentences
 
                 var lastSeparator = SentenceElements.Last() as ISeparator;
 
-                if (lastSeparator != null && lastSeparator.IsQuestionMark())
+                if (lastSeparator != null && lastSeparator.IsQuestionMark() &&
+                    !SentenceTypes.Contains(SentenceType.InterrogativeSentence))
                 {
                     SentenceTypes.Add(SentenceType.InterrogativeSentence);
                 }
 
-                if (lastSeparator != null && lastSeparator.IsDeclarativeMark())
+                if (lastSeparator != null && lastSeparator.IsDeclarativeMark() &&
+                    !SentenceTypes.Contains(SentenceType.DeclarativeSentence))
                 {
                     SentenceTypes.Add(SentenceType.DeclarativeSentence);
                 }
 
-                if (lastSeparator != null && lastSeparator.IsDeclarativeMark())
+                if (lastSeparator != null && lastSeparator.IsExclamationMark() &&
+                    !SentenceTypes.Contains(SentenceType.ExclamatorySentence))
                 {
                     SentenceTypes.Add(SentenceType.ExclamatorySentence);
                 }
@@ -87,18 +89,27 @@ namespace TextObjectModel.Sentences
 
         public void WriteXml(XmlWriter writer)
         {
-            var keySerializer = new XmlSerializer(typeof(Word));
-            var keySerializer2 = new XmlSerializer(typeof(Separator));
+            var sentenceTypesSerializer = new XmlSerializer(typeof(List<SentenceType>));
+
+            sentenceTypesSerializer.Serialize(writer, SentenceTypes.ToList());
+
+            var typeOfComplicatingStructuresSerializer = new XmlSerializer(typeof(TypeOfComplicatingStructures));
+
+            typeOfComplicatingStructuresSerializer.Serialize(writer, TypeOfComplicatingStructures);
+
+
+            var wordSerializer = new XmlSerializer(typeof(Word));
+            var separatorSerializer = new XmlSerializer(typeof(Separator));
 
             foreach (var element in SentenceElements)
             {
                 if (element is Word word)
                 {
-                    keySerializer.Serialize(writer, word);
+                    wordSerializer.Serialize(writer, word);
                 }
                 else
                 {
-                    keySerializer2.Serialize(writer, element);
+                    separatorSerializer.Serialize(writer, element);
                 }
             }
         }

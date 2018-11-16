@@ -2,6 +2,10 @@
 <Text>
   <ArrayOfSentence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
     <Sentence>
+      <ArrayOfSentenceType>
+        <SentenceType>ExclamatorySentence</SentenceType>
+      </ArrayOfSentenceType>
+      <TypeOfComplicatingStructures>ComplicatedSentence</TypeOfComplicatingStructures>
       <Word>
         <Chars>picked</Chars>
       </Word>
@@ -52,6 +56,10 @@
       </Separator>
     </Sentence>
     <Sentence>
+      <ArrayOfSentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+      </ArrayOfSentenceType>
+      <TypeOfComplicatingStructures>UncomplicatedSentence</TypeOfComplicatingStructures>
       <Word>
         <Chars>A</Chars>
       </Word>
@@ -78,6 +86,10 @@
       </Separator>
     </Sentence>
     <Sentence>
+      <ArrayOfSentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+      </ArrayOfSentenceType>
+      <TypeOfComplicatingStructures>UncomplicatedSentence</TypeOfComplicatingStructures>
       <Word>
         <Chars>peppers</Chars>
       </Word>
@@ -92,6 +104,10 @@
       </Separator>
     </Sentence>
     <Sentence>
+      <ArrayOfSentenceType>
+        <SentenceType>InterrogativeSentence</SentenceType>
+      </ArrayOfSentenceType>
+      <TypeOfComplicatingStructures>ComplicatedSentence</TypeOfComplicatingStructures>
       <Word>
         <Chars>If</Chars>
       </Word>

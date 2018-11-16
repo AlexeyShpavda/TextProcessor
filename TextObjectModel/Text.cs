@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -36,6 +37,16 @@ namespace TextObjectModel
             return stringBuilder.ToString();
         }
 
+        public void SaveToXmlFile(string fileName)
+        {
+            var xmlSerializer = new XmlSerializer(typeof(Text));
+
+            using (var fileStream = new FileStream(fileName, FileMode.Create))
+            {
+                xmlSerializer.Serialize(fileStream, this);
+            }
+        }
+
         public XmlSchema GetSchema()
         {
             return null;
@@ -48,9 +59,9 @@ namespace TextObjectModel
 
         public void WriteXml(XmlWriter writer)
         {
-            var keySerializer = new XmlSerializer(typeof(List<Sentence>));
+            var sentenceSerializer = new XmlSerializer(typeof(List<Sentence>));
 
-            keySerializer.Serialize(writer, Sentences.OfType<Sentence>().ToList());
+            sentenceSerializer.Serialize(writer, Sentences.OfType<Sentence>().ToList());
         }
     }
 }
