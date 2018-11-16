@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -16,8 +17,8 @@ namespace SyntacticalAnalyzer
 {
     public class TextParser : ITextParser
     {
-        private const string WordSeparationPattern = @"\b(\w+)((\p{P}{0,3})\s?)";
-        private const string SentencesSeparationPattern = @"(?<!\w\.\w.)(?<![A-Z][a-z]\.)(?<=\.|\?|\!)\s";
+        private readonly string _wordSeparationPattern = ConfigurationManager.AppSettings["wordSeparationPattern"];
+        private readonly string _sentencesSeparationPattern = ConfigurationManager.AppSettings["sentencesSeparationPattern"];
 
         public IText Parse(StreamReader streamReader)
         {
@@ -29,7 +30,7 @@ namespace SyntacticalAnalyzer
             {
                 fileLine = strBuffer + Regex.Replace(fileLine, "[\f\n\r\t\v]", " ");
 
-                var strSentences = Regex.Split(fileLine, SentencesSeparationPattern);
+                var strSentences = Regex.Split(fileLine, _sentencesSeparationPattern);
 
                 foreach (var strSentence in strSentences)
                 {
@@ -61,7 +62,7 @@ namespace SyntacticalAnalyzer
 
             ICollection<ISentenceElement> sentenceElements = new Collection<ISentenceElement>();
 
-            foreach (Match match in Regex.Matches(line, WordSeparationPattern))
+            foreach (Match match in Regex.Matches(line, _wordSeparationPattern))
             {
                 sentenceElements.Add(new Word(match.Groups[1].ToString()));
 
