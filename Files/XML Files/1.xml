@@ -133,7 +133,13 @@
         <Chars> </Chars>
       </Separator>
       <Word>
-        <Chars>ofpickled</Chars>
+        <Chars>of</Chars>
+      </Word>
+      <Separator>
+        <Chars> </Chars>
+      </Separator>
+      <Word>
+        <Chars>pickled</Chars>
       </Word>
       <Separator>
         <Chars> </Chars>

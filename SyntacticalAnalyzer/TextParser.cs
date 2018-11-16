@@ -44,7 +44,7 @@ namespace SyntacticalAnalyzer
                 else
                 {
                     sentences.Remove(sentences.Last());
-                    strBuffer = strSentences.Last();
+                    strBuffer = string.Concat(strSentences.Last(), " ");
                 }
             }
 

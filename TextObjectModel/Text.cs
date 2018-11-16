@@ -39,11 +39,19 @@ namespace TextObjectModel
 
         public void SaveToXmlFile(string fileName)
         {
-            var xmlSerializer = new XmlSerializer(typeof(Text));
-
             using (var fileStream = new FileStream(fileName, FileMode.Create))
             {
+                var xmlSerializer = new XmlSerializer(typeof(Text));
                 xmlSerializer.Serialize(fileStream, this);
+            }
+        }
+
+        public static Text ReadFromXmlFile(string fileName)
+        {
+            using (var fileStream = new FileStream(fileName, FileMode.Open))
+            {
+                var xmlSerializer = new XmlSerializer(typeof(Text));
+                return (Text) xmlSerializer.Deserialize(fileStream);
             }
         }
 

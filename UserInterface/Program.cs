@@ -95,6 +95,7 @@ namespace UserInterface
                 #endregion
 
                 text.SaveToXmlFile($"{xmlOutputFilePath}1.xml");
+                //text = Text.ReadFromXmlFile($"{xmlOutputFilePath}1.xml");
 
                 Console.ReadKey();
             }
