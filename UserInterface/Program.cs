@@ -101,6 +101,8 @@ namespace UserInterface
                 {
                     xmlSerializer.Serialize(fileStream, text);
                 }
+
+                Console.ReadKey();
             }
             catch (ArgumentException argumentException)
             {
@@ -114,8 +116,6 @@ namespace UserInterface
             {
                 Console.WriteLine(exception.Message);
             }
-
-            Console.ReadKey();
         }
     }
 }
