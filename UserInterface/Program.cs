@@ -5,6 +5,7 @@ using Interfaces.TextObjectModel;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences.Enums;
 using SyntacticalAnalyzer;
+using TextObjectModel;
 
 namespace UserInterface
 {
@@ -12,13 +13,16 @@ namespace UserInterface
     {
         private static void Main()
         {
-            var readFilePath = ConfigurationManager.AppSettings["readFilePath"];
-
-            var textParser = new TextParser();
-
             try
             {
+                var textParser = new TextParser();
+
+                var readFilePath = ConfigurationManager.AppSettings["readFilePath"];
+
                 IText text;
+
+                var textFormatting = new TextFormatting();
+
                 using (var streamReader = new StreamReader(readFilePath))
                 {
                     text = textParser.Parse(streamReader);
@@ -31,7 +35,8 @@ namespace UserInterface
 
                 #region Realization
 
-                var sortedSentences = text.SortSentencesAscending<IWord>();
+                var sortedSentences = textFormatting.SortSentencesAscending<IWord>(text);
+
                 foreach (var sentence in sortedSentences)
                 {
                     Console.WriteLine(sentence);
@@ -43,9 +48,10 @@ namespace UserInterface
 
                 #region Realization
 
-                var wordLength = 5;
-                var words = text.GetWordsFromSentences(SentenceType.InterrogativeSentence, wordLength);
-                foreach (var word in words)
+                var wordLengthForSecondTask = 5;
+                var wordsForSecondTask = textFormatting.GetWordsFromSentences(text, SentenceType.InterrogativeSentence, wordLengthForSecondTask);
+
+                foreach (var word in wordsForSecondTask)
                 {
                     Console.WriteLine(word);
                 }
@@ -56,12 +62,12 @@ namespace UserInterface
 
                 #region Realization
 
-                var wordLength2 = 5;
-                text.DeleteWordsStartingWithConsonant(wordLength2);
+                var wordLengthForThirdTask = 5;
+                textFormatting.DeleteWordsStartingWithConsonant(text, wordLengthForThirdTask);
 
-                foreach (var sentence in text.GetSentences())
+                foreach (var sentence in text.Sentences)
                 {
-                    sentence.SentenceUpdate(textParser.Parse(sentence.ToString()));
+                    sentence.SentenceElements = textParser.Parse(sentence.ToString());
                     Console.WriteLine(sentence);
                 }
 
@@ -71,19 +77,21 @@ namespace UserInterface
 
                 #region Realization
 
-                var sentenceNumber = 1;
-                var wordLength3 = 4;
-                text.ReplacesWordsInSentenceWithSubstring(sentenceNumber, wordLength3,
-                    textParser.Parse("peck, beak        peck"));
-                text.GetSentenceByIndex(sentenceNumber - 1).SentenceUpdate(textParser
-                    .Parse(text.GetSentenceByIndex(sentenceNumber - 1).ToString()));
+                var sentenceNumberForFourthTask = 1;
+                var wordLengthForFourthTask = 4;
+                var substringForFourthTask = "peck, beak        peck";
 
-                foreach (var sentence in text.GetSentences())
+                textFormatting.ReplacesWordsInSentenceWithSubstring(text, sentenceNumberForFourthTask,
+                    wordLengthForFourthTask, textParser.Parse(substringForFourthTask));
+                text.Sentences[sentenceNumberForFourthTask - 1].SentenceElements =
+                    textParser.Parse(text.Sentences[sentenceNumberForFourthTask - 1].ToString());
+
+                foreach (var sentence in text.Sentences)
                 {
                     Console.WriteLine(sentence);
                 }
 
-            #endregion
+                #endregion
 
             }
             catch (ArgumentException argumentException)

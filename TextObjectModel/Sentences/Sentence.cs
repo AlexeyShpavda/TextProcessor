@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -13,7 +12,7 @@ namespace TextObjectModel.Sentences
     {
         private ICollection<ISentenceElement> _sentenceElements;
 
-        private ICollection<ISentenceElement> SentenceElements
+        public ICollection<ISentenceElement> SentenceElements
         {
             get => _sentenceElements;
 
@@ -33,7 +32,7 @@ namespace TextObjectModel.Sentences
                     SentenceTypes.Add(SentenceType.DeclarativeSentence);
                 }
 
-                if (lastSeparator != null && lastSeparator.IsExclamationMark())
+                if (lastSeparator != null && lastSeparator.IsDeclarativeMark())
                 {
                     SentenceTypes.Add(SentenceType.ExclamatorySentence);
                 }
@@ -57,46 +56,6 @@ namespace TextObjectModel.Sentences
         public Sentence(ICollection<ISentenceElement> sentenceElements) : this()
         {
             SentenceElements = sentenceElements;
-        }
-
-        public void Add(ISentenceElement element)
-        {
-            SentenceElements.Add(element);
-        }
-
-        public void Remove<T>(Predicate<T> predicate) where T : ISentenceElement
-        {
-            SentenceElements = SentenceElements.Where(x => !(x is T t && predicate(t))).ToList();
-        }
-
-        public ICollection<T> GetElements<T>(Func<T, bool> selector = null) where T : ISentenceElement
-        {
-            return selector == null
-                ? SentenceElements.OfType<T>().ToList()
-                : SentenceElements.OfType<T>().Where(selector).ToList();
-        }
-
-        public void SentenceUpdate(ICollection<ISentenceElement> sentenceElements)
-        {
-            SentenceElements = sentenceElements;
-        }
-
-        public void ReplaceWord(Predicate<IWord> predicate, ICollection<ISentenceElement> sentenceElements)
-        {
-            var newSentence = new List<ISentenceElement>();
-
-            foreach (var element in SentenceElements)
-            {
-                if (element is IWord word && predicate(word))
-                {
-                    newSentence.AddRange(sentenceElements);
-                    continue;
-                }
-
-                newSentence.Add(element);
-            }
-
-            SentenceUpdate(newSentence);
         }
 
         public override string ToString()
