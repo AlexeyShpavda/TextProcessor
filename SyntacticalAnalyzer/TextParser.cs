@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
 using Interfaces.SyntacticalAnalyzer;
 using Interfaces.TextObjectModel;

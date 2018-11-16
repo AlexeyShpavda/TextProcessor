@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Text.RegularExpressions;
 using Interfaces.TextObjectModel.SentenceElements;
 
 namespace TextObjectModel.SentenceElements

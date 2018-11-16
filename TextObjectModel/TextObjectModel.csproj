@@ -40,6 +40,7 @@
     <Compile Include="SentenceElements\Separator.cs" />
     <Compile Include="Text.cs" />
     <Compile Include="SentenceElements\Word.cs" />
+    <Compile Include="TextFormatting.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">
