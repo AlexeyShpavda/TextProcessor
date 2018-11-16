@@ -17,13 +17,14 @@ namespace UserInterface
             {
                 var textParser = new TextParser();
 
-                var readFilePath = ConfigurationManager.AppSettings["readFilePath"];
+                var txtInputFilePath = ConfigurationManager.AppSettings["txtInputFilePath"];
+                var xmlOutputFilePath = ConfigurationManager.AppSettings["xmlOutputFilePath"];
 
                 IText text;
 
                 var textFormatting = new TextFormatting();
 
-                using (var streamReader = new StreamReader(readFilePath))
+                using (var streamReader = new StreamReader($"{txtInputFilePath}1.txt"))
                 {
                     text = textParser.Parse(streamReader);
                 }
