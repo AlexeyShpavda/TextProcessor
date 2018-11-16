@@ -12,9 +12,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextObjectModel", "TextObjectModel\TextObjectModel.csproj", "{9D838415-27C6-4798-8B9A-FEE2D8B6B3C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{7AED3C68-9719-4787-8B20-E7F17A0C84ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TXT Files", "TXT Files", "{A823251D-7987-46F7-A2E5-B871B67861FB}"
 	ProjectSection(SolutionItems) = preProject
-		Files\1.txt = Files\1.txt
-		Files\2.txt = Files\2.txt
+		Files\TXT Files\1.txt = Files\TXT Files\1.txt
+		Files\TXT Files\2.txt = Files\TXT Files\2.txt
+		Files\TXT Files\3.txt = Files\TXT Files\3.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XML Files", "XML Files", "{B0041477-DCED-473B-ABD1-CB5BB71F9D48}"
+	ProjectSection(SolutionItems) = preProject
+		Files\XML Files\1.xml = Files\XML Files\1.xml
 	EndProjectSection
 EndProject
 Global
@@ -42,6 +50,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A823251D-7987-46F7-A2E5-B871B67861FB} = {7AED3C68-9719-4787-8B20-E7F17A0C84ED}
+		{B0041477-DCED-473B-ABD1-CB5BB71F9D48} = {7AED3C68-9719-4787-8B20-E7F17A0C84ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2636D5BC-BC31-4B68-96EB-9DA7CEF0A446}
