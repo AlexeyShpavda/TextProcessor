@@ -1,6 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using Interfaces.TextObjectModel;
-using Interfaces.TextObjectModel.Sentences;
+using Interfaces.TextObjectModel.SentenceElements;
 
 namespace Interfaces.SyntacticalAnalyzer
 {
@@ -8,6 +9,6 @@ namespace Interfaces.SyntacticalAnalyzer
     {
         IText Parse(StreamReader streamReader);
 
-        ISentence Parse(string inputLine);
+        ICollection<ISentenceElement> Parse(string inputLine);
     }
 }

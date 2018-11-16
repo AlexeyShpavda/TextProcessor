@@ -61,7 +61,7 @@ namespace UserInterface
 
                 foreach (var sentence in text.GetSentences())
                 {
-                    sentence.SentenceUpdate(textParser.Parse(sentence.ToString()).GetElements<ISentenceElement>());
+                    sentence.SentenceUpdate(textParser.Parse(sentence.ToString()));
                     Console.WriteLine(sentence);
                 }
 
@@ -74,16 +74,16 @@ namespace UserInterface
                 var sentenceNumber = 1;
                 var wordLength3 = 4;
                 text.ReplacesWordsInSentenceWithSubstring(sentenceNumber, wordLength3,
-                    textParser.Parse("peck, beak        peck").GetElements<ISentenceElement>());
+                    textParser.Parse("peck, beak        peck"));
                 text.GetSentenceByIndex(sentenceNumber - 1).SentenceUpdate(textParser
-                    .Parse(text.GetSentenceByIndex(sentenceNumber - 1).ToString()).GetElements<ISentenceElement>());
+                    .Parse(text.GetSentenceByIndex(sentenceNumber - 1).ToString()));
 
                 foreach (var sentence in text.GetSentences())
                 {
                     Console.WriteLine(sentence);
                 }
 
-                #endregion
+            #endregion
 
             }
             catch (ArgumentException argumentException)

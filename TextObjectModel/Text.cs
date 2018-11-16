@@ -19,6 +19,10 @@ namespace TextObjectModel
             Sentences = new Collection<ISentence>();
         }
 
+        public Text(IList<ISentence> sentences)
+        {
+            Sentences = sentences;
+        }
         public void Add(ISentence sentence)
         {
             Sentences.Add(sentence);

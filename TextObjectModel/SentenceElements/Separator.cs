@@ -6,46 +6,35 @@ namespace TextObjectModel.SentenceElements
 {
     public class Separator : ISeparator
     {
-        public static string[] SentenceSeparators { get; } = {"... ", "! ", ". ", "? ", "?! ", "!? "};
+        public static string[] SentenceSeparators { get; } = {"...", "!", ".", "?", "?!", "!?"};
 
-        public static string[] WordSeparators { get; } = {", ", "; ", ": "};
+        public static string[] WordSeparators { get; } = {",", ";", ":"};
 
-        private string _chars;
-
-        public string Chars
-        {
-            get => _chars;
-            set => _chars = Regex.Replace(value, "[\f\n\r\t\v]", " ");
-        }
+        public string Chars { get; set; }
 
         public Separator(string str)
         {
             Chars = str;
         }
 
-        public static bool IsSentenceSeparator(string str)
+        public bool IsWordSeparator()
         {
-            return SentenceSeparators.Any(separator => separator == str);
+            return WordSeparators.Any(x => Chars.Contains(x));
         }
 
-        public static bool IsWordSeparator(string str)
+        public bool IsExclamationMark()
         {
-            return WordSeparators.Any(separator => separator == str);
+            return Chars.Contains('!');
         }
 
-        public static bool IsExclamationMark(string str)
+        public bool IsQuestionMark()
         {
-            return str.Contains('!');
+            return Chars.Contains('?');
         }
 
-        public static bool IsQuestionMark(string str)
+        public bool IsDeclarativeMark()
         {
-            return str.Contains('?');
-        }
-
-        public static bool IsDeclarativeSentence(string str)
-        {
-            return str.Contains('.');
+            return Chars.Contains('.');
         }
 
         public override string ToString()
