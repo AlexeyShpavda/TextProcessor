@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.Xml.Serialization;
 using Interfaces.TextObjectModel;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences.Enums;
@@ -94,6 +95,12 @@ namespace UserInterface
 
                 #endregion
 
+                var xmlSerializer = new XmlSerializer(typeof(Text));
+
+                using (var fileStream = new FileStream($"{xmlOutputFilePath}1.xml", FileMode.OpenOrCreate))
+                {
+                    xmlSerializer.Serialize(fileStream, text);
+                }
             }
             catch (ArgumentException argumentException)
             {

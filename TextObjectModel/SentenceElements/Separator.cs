@@ -11,6 +11,11 @@ namespace TextObjectModel.SentenceElements
 
         public string Chars { get; set; }
 
+        public Separator()
+        {
+            Chars = string.Empty;
+        }
+
         public Separator(string str)
         {
             Chars = str;

@@ -1,14 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences;
 using Interfaces.TextObjectModel.Sentences.Enums;
+using TextObjectModel.SentenceElements;
 
 namespace TextObjectModel.Sentences
 {
-    public class Sentence : ISentence
+    public class Sentence : ISentence, IXmlSerializable
     {
         private ICollection<ISentenceElement> _sentenceElements;
 
@@ -68,6 +73,34 @@ namespace TextObjectModel.Sentences
             }
 
             return stringBuilder.ToString();
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            var keySerializer = new XmlSerializer(typeof(Word));
+            var keySerializer2 = new XmlSerializer(typeof(Separator));
+
+            foreach (var element in SentenceElements)
+            {
+                if (element is Word word)
+                {
+                    keySerializer.Serialize(writer, word);
+                }
+                else
+                {
+                    keySerializer2.Serialize(writer, element);
+                }
+            }
         }
     }
 }

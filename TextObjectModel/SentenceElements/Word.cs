@@ -10,6 +10,11 @@ namespace TextObjectModel.SentenceElements
 
         public int Length => Chars.Length;
 
+        public Word()
+        {
+            Chars = string.Empty;
+        }
+
         public Word(string str)
         {
             Chars = str;
