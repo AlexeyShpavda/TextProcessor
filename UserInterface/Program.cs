@@ -15,14 +15,17 @@ namespace UserInterface
         {
             try
             {
-                IText text;
+                var txtFilesPath = ConfigurationManager.AppSettings["txtFilesPath"];
+                var xmlFilesPath = ConfigurationManager.AppSettings["xmlFilesPath"];
 
-                var txtInputFilePath = ConfigurationManager.AppSettings["txtInputFilePath"];
-                var xmlOutputFilePath = ConfigurationManager.AppSettings["xmlOutputFilePath"];
+                var txtInputFilePath = $"{txtFilesPath}1.txt";
+                var xmlOutputFilePath = $"{txtFilesPath}1.xml";
+
+                IText text;
 
                 var textParser = new TextParser();
 
-                using (var streamReader = new StreamReader($"{txtInputFilePath}1.txt"))
+                using (var streamReader = new StreamReader(txtInputFilePath))
                 {
                     text = textParser.Parse(streamReader);
                 }
@@ -56,7 +59,7 @@ namespace UserInterface
                 {
                     Console.WriteLine(word);
                 }
-            
+
                 #endregion
 
                 Console.WriteLine("<======================= Task3 ========================>");
@@ -68,7 +71,7 @@ namespace UserInterface
 
                 foreach (var sentence in text.Sentences)
                 {
-                   sentence.SentenceUpdate(textParser.Parse(sentence.ToString()));
+                    sentence.SentenceUpdate(textParser.Parse(sentence.ToString()));
                     Console.WriteLine(sentence);
                 }
 
@@ -94,8 +97,9 @@ namespace UserInterface
 
                 #endregion
 
-                //text.SaveToXmlFile($"{xmlOutputFilePath}1.xml");
-                //text = Text.ReadFromXmlFile($"{xmlOutputFilePath}1.xml");
+                //text.SaveToXmlFile(xmlOutputFilePath);
+
+                //text = Text.ReadFromXmlFile(xmlOutputFilePath);
             }
             catch (ArgumentException argumentException)
             {

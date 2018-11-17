@@ -7,7 +7,7 @@ namespace Interfaces.TextObjectModel.Sentences
 {
     public interface ISentence
     {
-        ICollection<ISentenceElement> SentenceElements { get; }
+        ICollection<ISentenceElement> SentenceElements{ get; }
 
         ICollection<SentenceType> SentenceTypes { get; }
 

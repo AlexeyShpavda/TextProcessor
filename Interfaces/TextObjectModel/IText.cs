@@ -6,5 +6,7 @@ namespace Interfaces.TextObjectModel
     public interface IText
     {
         IList<ISentence> Sentences { get; }
+
+        void SaveToXmlFile(string fileName);
     }
 }

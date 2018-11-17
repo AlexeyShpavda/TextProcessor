@@ -1,14 +1,17 @@
 ﻿using System.Linq;
+using System.Runtime.Serialization;
 using Interfaces.TextObjectModel.SentenceElements;
 
 namespace TextObjectModel.SentenceElements
 {
+    [DataContract(Namespace = "")]
     public class Separator : ISeparator
     {
         public static string[] SentenceSeparators { get; } = {"...", "!", ".", "?", "?!", "!?"};
 
         public static string[] WordSeparators { get; } = {",", ";", ":"};
 
+        [DataMember]
         public string Chars { get; set; }
 
         public Separator()
