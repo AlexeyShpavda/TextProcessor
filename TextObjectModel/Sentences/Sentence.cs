@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -18,35 +19,22 @@ namespace TextObjectModel.Sentences
 
         public ICollection<ISentenceElement> SentenceElements
         {
-            get => _sentenceElements;
+            get
+            {
+                GetSentenceTypes();
+
+                GetTypeOfComplicatingStructures();
+
+                return _sentenceElements;
+            }
 
             set
             {
+                SentenceTypes.Clear();
+
+                if (value.Count == 0)
+                    throw new ArgumentException("Value cannot be an empty collection.", nameof(value));
                 _sentenceElements = value;
-
-                var lastSeparator = SentenceElements.Last() as ISeparator;
-
-                if (lastSeparator != null && lastSeparator.IsQuestionMark() &&
-                    !SentenceTypes.Contains(SentenceType.InterrogativeSentence))
-                {
-                    SentenceTypes.Add(SentenceType.InterrogativeSentence);
-                }
-
-                if (lastSeparator != null && lastSeparator.IsDeclarativeMark() &&
-                    !SentenceTypes.Contains(SentenceType.DeclarativeSentence))
-                {
-                    SentenceTypes.Add(SentenceType.DeclarativeSentence);
-                }
-
-                if (lastSeparator != null && lastSeparator.IsExclamationMark() &&
-                    !SentenceTypes.Contains(SentenceType.ExclamatorySentence))
-                {
-                    SentenceTypes.Add(SentenceType.ExclamatorySentence);
-                }
-
-                TypeOfComplicatingStructures = SentenceElements.OfType<ISeparator>().Any(x => x.IsWordSeparator())
-                    ? TypeOfComplicatingStructures.ComplicatedSentence
-                    : TypeOfComplicatingStructures.UncomplicatedSentence;
             }
         }
 
@@ -63,6 +51,33 @@ namespace TextObjectModel.Sentences
         public Sentence(ICollection<ISentenceElement> sentenceElements) : this()
         {
             SentenceElements = sentenceElements;
+        }
+
+        public void GetSentenceTypes()
+        {
+            var lastSeparator = _sentenceElements.Last() as ISeparator;
+
+            if (lastSeparator != null && lastSeparator.IsQuestionMark())
+            {
+                SentenceTypes.Add(SentenceType.InterrogativeSentence);
+            }
+
+            if (lastSeparator != null && lastSeparator.IsDeclarativeMark())
+            {
+                SentenceTypes.Add(SentenceType.DeclarativeSentence);
+            }
+
+            if (lastSeparator != null && lastSeparator.IsExclamationMark())
+            {
+                SentenceTypes.Add(SentenceType.ExclamatorySentence);
+            }
+        }
+
+        public void GetTypeOfComplicatingStructures()
+        {
+            TypeOfComplicatingStructures = _sentenceElements.OfType<ISeparator>().Any(x => x.IsWordSeparator())
+                ? TypeOfComplicatingStructures.ComplicatedSentence
+                : TypeOfComplicatingStructures.UncomplicatedSentence;
         }
 
         public override string ToString()

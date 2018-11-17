@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,26 @@ namespace TextObjectModel
 {
     public class Text : IText, IXmlSerializable
     {
-        public IList<ISentence> Sentences { get; set; }
+        private IList<ISentence> _sentences;
+
+        public IList<ISentence> Sentences
+        {
+            get
+            {
+                _sentences = (from sentence in _sentences
+                              where sentence.SentenceElements.Count != 0
+                              select sentence).ToList();
+
+                return _sentences;
+            }
+            set
+            {
+                if (value.Count == 0)
+                    throw new ArgumentException("Value cannot be an empty collection.", nameof(value));
+
+                _sentences = value;
+            }
+        }
 
         public Text()
         {

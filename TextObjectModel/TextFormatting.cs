@@ -76,5 +76,12 @@ namespace TextObjectModel
                 ? sentence.SentenceElements.OfType<T>().ToList()
                 : sentence.SentenceElements.OfType<T>().Where(selector).ToList();
         }
+
+        public void RemoveEmptySentences(IText text)
+        {
+            text.Sentences = (from sentence in text.Sentences
+                where sentence.SentenceElements.Count != 0
+                select sentence).ToList();
+        }
     }
 }

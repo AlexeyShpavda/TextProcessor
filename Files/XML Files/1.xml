@@ -4,6 +4,8 @@
     <Sentence>
       <ArrayOfSentenceType>
         <SentenceType>ExclamatorySentence</SentenceType>
+        <SentenceType>ExclamatorySentence</SentenceType>
+        <SentenceType>ExclamatorySentence</SentenceType>
       </ArrayOfSentenceType>
       <TypeOfComplicatingStructures>ComplicatedSentence</TypeOfComplicatingStructures>
       <Word>
@@ -58,6 +60,12 @@
     <Sentence>
       <ArrayOfSentenceType>
         <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
       </ArrayOfSentenceType>
       <TypeOfComplicatingStructures>UncomplicatedSentence</TypeOfComplicatingStructures>
       <Word>
@@ -88,6 +96,12 @@
     <Sentence>
       <ArrayOfSentenceType>
         <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
+        <SentenceType>DeclarativeSentence</SentenceType>
       </ArrayOfSentenceType>
       <TypeOfComplicatingStructures>UncomplicatedSentence</TypeOfComplicatingStructures>
       <Word>
@@ -104,9 +118,7 @@
       </Separator>
     </Sentence>
     <Sentence>
-      <ArrayOfSentenceType>
-        <SentenceType>InterrogativeSentence</SentenceType>
-      </ArrayOfSentenceType>
+      <ArrayOfSentenceType />
       <TypeOfComplicatingStructures>ComplicatedSentence</TypeOfComplicatingStructures>
       <Word>
         <Chars>If</Chars>

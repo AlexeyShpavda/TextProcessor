@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
@@ -34,23 +33,22 @@ namespace SyntacticalAnalyzer
 
                 foreach (var strSentence in strSentences)
                 {
-                    sentences.Add(new Sentence(Parse(strSentence)));
-                }
-
-                if (Separator.SentenceSeparators.Any(x => strSentences.Last().EndsWith(x)))
-                {
-                    strBuffer = string.Empty;
-                }
-                else
-                {
-                    sentences.Remove(sentences.Last());
-                    strBuffer = string.Concat(strSentences.Last(), " ");
+                    if (Separator.SentenceSeparators.Any(x => strSentence.EndsWith(x)))
+                    {
+                        sentences.Add(new Sentence(Parse(strSentence)));
+                        strBuffer = string.Empty;
+                    }
+                    else
+                    {
+                        strBuffer = string.Concat(strSentence, " ");
+                    }
                 }
             }
 
             if (strBuffer != string.Empty)
             {
-                throw new Exception("There is no punctuation mark at the end of the text.");
+                sentences.Add(new Sentence(Parse(strBuffer)));
+                //throw new Exception("There is no punctuation mark at the end of the text.");
             }
 
             return new Text(sentences);

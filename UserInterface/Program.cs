@@ -15,19 +15,19 @@ namespace UserInterface
         {
             try
             {
-                var textParser = new TextParser();
+                IText text;
 
                 var txtInputFilePath = ConfigurationManager.AppSettings["txtInputFilePath"];
                 var xmlOutputFilePath = ConfigurationManager.AppSettings["xmlOutputFilePath"];
 
-                IText text;
-
-                var textFormatting = new TextFormatting();
+                var textParser = new TextParser();
 
                 using (var streamReader = new StreamReader($"{txtInputFilePath}1.txt"))
                 {
                     text = textParser.Parse(streamReader);
                 }
+
+                var textFormatting = new TextFormatting();
 
                 Console.WriteLine("<==================== Initial Text ====================>");
                 Console.WriteLine(text);
@@ -96,8 +96,6 @@ namespace UserInterface
 
                 text.SaveToXmlFile($"{xmlOutputFilePath}1.xml");
                 //text = Text.ReadFromXmlFile($"{xmlOutputFilePath}1.xml");
-
-                Console.ReadKey();
             }
             catch (ArgumentException argumentException)
             {
@@ -110,6 +108,10 @@ namespace UserInterface
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
+            }
+            finally
+            {
+                Console.ReadKey();
             }
         }
     }
