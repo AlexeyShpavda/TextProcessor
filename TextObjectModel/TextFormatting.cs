@@ -62,12 +62,12 @@ namespace TextObjectModel
                 newSentenceElements.Add(element);
             }
 
-            sentence.SentenceElements = newSentenceElements;
+            sentence.SentenceUpdate(newSentenceElements);
         }
 
         public void RemoveFromSentence<T>(ISentence sentence, Predicate<T> predicate) where T : ISentenceElement
         {
-            sentence.SentenceElements = sentence.SentenceElements.Where(x => !(x is T t && predicate(t))).ToList();
+            sentence.SentenceUpdate(sentence.SentenceElements.Where(x => !(x is T t && predicate(t))).ToList());
         }
 
         public ICollection<T> SelectElements<T>(ISentence sentence, Func<T, bool> selector = null) where T : ISentenceElement
@@ -75,13 +75,6 @@ namespace TextObjectModel
             return selector == null
                 ? sentence.SentenceElements.OfType<T>().ToList()
                 : sentence.SentenceElements.OfType<T>().Where(selector).ToList();
-        }
-
-        public void RemoveEmptySentences(IText text)
-        {
-            text.Sentences = (from sentence in text.Sentences
-                where sentence.SentenceElements.Count != 0
-                select sentence).ToList();
         }
     }
 }

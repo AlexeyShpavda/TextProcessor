@@ -13,7 +13,7 @@ using TextObjectModel.SentenceElements;
 
 namespace TextObjectModel.Sentences
 {
-    public class Sentence : ISentence, IXmlSerializable
+    public class Sentence : ISentence//, IXmlSerializable
     {
         private ICollection<ISentenceElement> _sentenceElements;
 
@@ -28,7 +28,7 @@ namespace TextObjectModel.Sentences
                 return _sentenceElements;
             }
 
-            set
+            private set
             {
                 SentenceTypes.Clear();
 
@@ -38,9 +38,9 @@ namespace TextObjectModel.Sentences
             }
         }
 
-        public ICollection<SentenceType> SentenceTypes { get; set; }
+        public ICollection<SentenceType> SentenceTypes { get; private set; }
 
-        public TypeOfComplicatingStructures TypeOfComplicatingStructures { get; set; }
+        public TypeOfComplicatingStructures TypeOfComplicatingStructures { get; private set; }
 
         public Sentence()
         {
@@ -53,8 +53,17 @@ namespace TextObjectModel.Sentences
             SentenceElements = sentenceElements;
         }
 
+        public ICollection<T> GetElements<T>(Func<T, bool> selector = null) where T : ISentenceElement
+        {
+            return selector == null
+                ? SentenceElements.OfType<T>().ToList()
+                : SentenceElements.OfType<T>().Where(selector).ToList();
+        }
+
         public void GetSentenceTypes()
         {
+            SentenceTypes.Clear();
+
             var lastSeparator = _sentenceElements.Last() as ISeparator;
 
             if (lastSeparator != null && lastSeparator.IsQuestionMark())
@@ -80,6 +89,11 @@ namespace TextObjectModel.Sentences
                 : TypeOfComplicatingStructures.UncomplicatedSentence;
         }
 
+        public void SentenceUpdate(ICollection<ISentenceElement> sentenceElements)
+        {
+            SentenceElements = sentenceElements;
+        }
+
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
@@ -92,41 +106,41 @@ namespace TextObjectModel.Sentences
             return stringBuilder.ToString();
         }
 
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
+        //public XmlSchema GetSchema()
+        //{
+        //    return null;
+        //}
 
-        public void ReadXml(XmlReader reader)
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void ReadXml(XmlReader reader)
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void WriteXml(XmlWriter writer)
-        {
-            var sentenceTypesSerializer = new XmlSerializer(typeof(List<SentenceType>));
+        //public void WriteXml(XmlWriter writer)
+        //{
+        //    var sentenceTypesSerializer = new XmlSerializer(typeof(List<SentenceType>));
 
-            sentenceTypesSerializer.Serialize(writer, SentenceTypes.ToList());
+        //    sentenceTypesSerializer.Serialize(writer, SentenceTypes.ToList());
 
-            var typeOfComplicatingStructuresSerializer = new XmlSerializer(typeof(TypeOfComplicatingStructures));
+        //    var typeOfComplicatingStructuresSerializer = new XmlSerializer(typeof(TypeOfComplicatingStructures));
 
-            typeOfComplicatingStructuresSerializer.Serialize(writer, TypeOfComplicatingStructures);
+        //    typeOfComplicatingStructuresSerializer.Serialize(writer, TypeOfComplicatingStructures);
 
 
-            var wordSerializer = new XmlSerializer(typeof(Word));
-            var separatorSerializer = new XmlSerializer(typeof(Separator));
+        //    var wordSerializer = new XmlSerializer(typeof(Word));
+        //    var separatorSerializer = new XmlSerializer(typeof(Separator));
 
-            foreach (var element in SentenceElements)
-            {
-                if (element is Word word)
-                {
-                    wordSerializer.Serialize(writer, word);
-                }
-                else
-                {
-                    separatorSerializer.Serialize(writer, element);
-                }
-            }
-        }
+        //    foreach (var element in SentenceElements)
+        //    {
+        //        if (element is Word word)
+        //        {
+        //            wordSerializer.Serialize(writer, word);
+        //        }
+        //        else
+        //        {
+        //            separatorSerializer.Serialize(writer, element);
+        //        }
+        //    }
+        //}
     }
 }

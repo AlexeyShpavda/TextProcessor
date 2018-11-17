@@ -12,7 +12,7 @@ using TextObjectModel.Sentences;
 
 namespace TextObjectModel
 {
-    public class Text : IText, IXmlSerializable
+    public class Text : IText//, IXmlSerializable
     {
         private IList<ISentence> _sentences;
 
@@ -26,7 +26,7 @@ namespace TextObjectModel
 
                 return _sentences;
             }
-            set
+            private set
             {
                 if (value.Count == 0)
                     throw new ArgumentException("Value cannot be an empty collection.", nameof(value));
@@ -57,39 +57,39 @@ namespace TextObjectModel
             return stringBuilder.ToString();
         }
 
-        public void SaveToXmlFile(string fileName)
-        {
-            using (var fileStream = new FileStream(fileName, FileMode.Create))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(Text));
-                xmlSerializer.Serialize(fileStream, this);
-            }
-        }
+        //public void SaveToXmlFile(string fileName)
+        //{
+        //    using (var fileStream = new FileStream(fileName, FileMode.Create))
+        //    {
+        //        var xmlSerializer = new XmlSerializer(typeof(Text));
+        //        xmlSerializer.Serialize(fileStream, this);
+        //    }
+        //}
 
-        public static Text ReadFromXmlFile(string fileName)
-        {
-            using (var fileStream = new FileStream(fileName, FileMode.Open))
-            {
-                var xmlSerializer = new XmlSerializer(typeof(Text));
-                return (Text) xmlSerializer.Deserialize(fileStream);
-            }
-        }
+        //public static Text ReadFromXmlFile(string fileName)
+        //{
+        //    using (var fileStream = new FileStream(fileName, FileMode.Open))
+        //    {
+        //        var xmlSerializer = new XmlSerializer(typeof(Text));
+        //        return (Text) xmlSerializer.Deserialize(fileStream);
+        //    }
+        //}
 
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
+        //public XmlSchema GetSchema()
+        //{
+        //    return null;
+        //}
 
-        public void ReadXml(XmlReader reader)
-        {
-            throw new System.NotImplementedException();
-        }
+        //public void ReadXml(XmlReader reader)
+        //{
+        //    throw new System.NotImplementedException();
+        //}
 
-        public void WriteXml(XmlWriter writer)
-        {
-            var sentenceSerializer = new XmlSerializer(typeof(List<Sentence>));
+        //public void WriteXml(XmlWriter writer)
+        //{
+        //    var sentenceSerializer = new XmlSerializer(typeof(List<Sentence>));
 
-            sentenceSerializer.Serialize(writer, Sentences.OfType<Sentence>().ToList());
-        }
+        //    sentenceSerializer.Serialize(writer, Sentences.OfType<Sentence>().ToList());
+        //}
     }
 }

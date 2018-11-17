@@ -68,7 +68,7 @@ namespace UserInterface
 
                 foreach (var sentence in text.Sentences)
                 {
-                    sentence.SentenceElements = textParser.Parse(sentence.ToString());
+                   sentence.SentenceUpdate(textParser.Parse(sentence.ToString()));
                     Console.WriteLine(sentence);
                 }
 
@@ -84,8 +84,8 @@ namespace UserInterface
 
                 textFormatting.ReplacesWordsInSentenceWithSubstring(text, sentenceNumberForFourthTask,
                     wordLengthForFourthTask, textParser.Parse(substringForFourthTask));
-                text.Sentences[sentenceNumberForFourthTask - 1].SentenceElements =
-                    textParser.Parse(text.Sentences[sentenceNumberForFourthTask - 1].ToString());
+                text.Sentences[sentenceNumberForFourthTask - 1].SentenceUpdate(
+                    textParser.Parse(text.Sentences[sentenceNumberForFourthTask - 1].ToString()));
 
                 foreach (var sentence in text.Sentences)
                 {
@@ -94,7 +94,7 @@ namespace UserInterface
 
                 #endregion
 
-                text.SaveToXmlFile($"{xmlOutputFilePath}1.xml");
+                //text.SaveToXmlFile($"{xmlOutputFilePath}1.xml");
                 //text = Text.ReadFromXmlFile($"{xmlOutputFilePath}1.xml");
             }
             catch (ArgumentException argumentException)
