@@ -68,7 +68,7 @@ namespace UserInterface
                 #region Realization
 
                 var wordLengthForThirdTask = 5;
-                textFormatting.DeleteWordsStartingWithConsonant(text, wordLengthForThirdTask);
+                text = textFormatting.DeleteWordsStartingWithConsonant(text, wordLengthForThirdTask);
 
                 foreach (var sentence in text.Sentences)
                 {
@@ -85,10 +85,8 @@ namespace UserInterface
                 var wordLengthForFourthTask = 7;
                 var substringForFourthTask = "peck. beak.        peck,";
 
-                textFormatting.ReplacesWordsInSentenceWithSubstring(text, sentenceNumberForFourthTask,
+                text = textFormatting.ReplacesWordsInSentenceWithSubstring(text, sentenceNumberForFourthTask,
                     wordLengthForFourthTask, textParser.Parse(substringForFourthTask));
-                //text.Sentences[sentenceNumberForFourthTask - 1].SentenceUpdate(
-                //    textParser.Parse(text.Sentences[sentenceNumberForFourthTask - 1].ToString()));
 
                 foreach (var sentence in text.Sentences)
                 {

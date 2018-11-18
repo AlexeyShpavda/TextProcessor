@@ -22,9 +22,9 @@ namespace TextObjectModel
         {
             get
             {
-                _sentences = (from sentence in _sentences
-                              where sentence.SentenceElements.Count != 0
-                              select sentence).ToList();
+                //_sentences = (from sentence in _sentences
+                //              where sentence.SentenceElements.Count != 0
+                //              select sentence).ToList();
 
                 return _sentences;
             }

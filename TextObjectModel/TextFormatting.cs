@@ -32,40 +32,35 @@ namespace TextObjectModel
                 .SelectMany(y => SelectElements<IWord>(y, z => z.Length == wordLength)).Distinct();
         }
 
-        public void DeleteWordsStartingWithConsonant(IText text, int wordLength)
+        public IText DeleteWordsStartingWithConsonant(IText text, int wordLength)
         {
-            var newSentences = text.Sentences.Select(x =>
-                RemoveWordsFromSentence(x, y => y.Length == wordLength && y.StartWithConsonant()));
-
-            newSentences = newSentences
+            var newSentences = text.Sentences
+                .Select(x => RemoveWordsFromSentence(x, y => y.Length == wordLength && y.StartWithConsonant()))
                 .Where(x => x.SentenceElements.OfType<IWord>().Any() && x.SentenceElements.Count > 0).ToList();
 
-            text.Sentences.Clear();
-            foreach (var sentence in newSentences)
-            {
-                text.Sentences.Add(sentence);
-            }
+            return new Text(newSentences);
         }
 
-        public void ReplacesWordsInSentenceWithSubstring(IText text, int sentenceNumber, int wordLength,
+        public IText ReplacesWordsInSentenceWithSubstring(IText text, int sentenceNumber, int wordLength,
             ICollection<ISentenceElement> sentenceElements)
         {
             var sentenceIndex = sentenceNumber - 1;
 
-            var sentences = new List<ISentence>();
+            var sentencesForNewText = new List<ISentence>();
             var elementsForNewSentences = new List<ISentenceElement>();
+            var elementsForOneNewSentence = new List<ISentenceElement>();
 
             elementsForNewSentences.AddRange(ReplaceWord(text.Sentences[sentenceIndex],
                 x => x.Length == wordLength, sentenceElements));
-
-            var elementsForOneNewSentence = new List<ISentenceElement>();
 
             foreach (var sentenceElement in elementsForNewSentences)
             {
                 if (sentenceElement is ISeparator separator && separator.IsSentenceSeparationMark())
                 {
                     elementsForOneNewSentence.Add(sentenceElement);
-                    sentences.Add(new Sentence(elementsForOneNewSentence.ToList()));
+
+                    sentencesForNewText.Add(new Sentence(elementsForOneNewSentence.ToList()));
+
                     elementsForOneNewSentence.Clear();
                 }
                 else
@@ -74,105 +69,78 @@ namespace TextObjectModel
                 }
             }
 
-            if (elementsForOneNewSentence.Count <= 0) return;
+            if (elementsForOneNewSentence.Count == 0)
+            {
+                return new Text(AddSentencesToTextByIndex(text, sentenceIndex, sentencesForNewText));
+            }
 
             var nextSentenceIndex = sentenceIndex + 1;
+
             elementsForOneNewSentence.AddRange(text.Sentences[nextSentenceIndex].SentenceElements);
-            sentences.Add(new Sentence(elementsForOneNewSentence.ToList()));
+
+            sentencesForNewText.Add(new Sentence(elementsForOneNewSentence.ToList()));
 
             text.Sentences.RemoveAt(sentenceIndex);
             text.Sentences.RemoveAt(sentenceIndex);
 
-            AddSentencesToTextByIndex(text, sentenceIndex, sentences);
+            return new Text(AddSentencesToTextByIndex(text, sentenceIndex, sentencesForNewText));
         }
 
         public ICollection<ISentenceElement> ReplaceWord(ISentence sentence, Predicate<IWord> predicate,
             ICollection<ISentenceElement> sentenceElements)
         {
-            var newSentenceElements = new List<ISentenceElement>();
-
-            var needToAddElement = true;
-            foreach (var element in sentence.SentenceElements)
+            var newSentenceElements = sentence.SentenceElements.ToList();
+            var matchingWords = newSentenceElements.OfType<IWord>().ToList().FindAll(predicate);
+            if (matchingWords.Any())
             {
-                if (element is IWord word && predicate(word))
+                foreach (var element in matchingWords)
                 {
-                    if (((ISeparator) sentenceElements.Last()).IsSpaceMark())
-                    {
-                        newSentenceElements.AddRange(sentenceElements.Where(x => x != sentenceElements.Last()));
-                    }
-                    else
-                    {
-                        newSentenceElements.AddRange(sentenceElements);
-                        needToAddElement = false;
-                    }
-                }
-                else
-                {
-                    if (needToAddElement)
-                    {
-                        newSentenceElements.Add(element);
-                    }
-                    else
-                    {
-                        needToAddElement = true;
-                    }
+                    var index = newSentenceElements.IndexOf(element);
+
+                    newSentenceElements.Remove(element);
+
+                    newSentenceElements.RemoveAt(index);
+
+                    newSentenceElements.InsertRange(index, sentenceElements);
                 }
             }
 
-            if (newSentenceElements.Count != 0)
-            {
-                return newSentenceElements.ToList(); 
-            }
-            else
-            {
-                return null;
-            }
+            return newSentenceElements.Count != 0 ? new List<ISentenceElement>(newSentenceElements) : null;
         }
 
-        public void AddSentencesToTextByIndex(IText text, int sentenceIndex, ICollection<ISentence> sentences)
+        public IList<ISentence> AddSentencesToTextByIndex(IText text, int sentenceIndex,
+            ICollection<ISentence> sentences)
         {
             var newTextSentences = text.Sentences.ToList();
+
             newTextSentences.InsertRange(sentenceIndex, sentences);
-            text.Sentences.Clear();
-            foreach (var sentence in newTextSentences)
-            {
-                text.Sentences.Add(sentence);
-            }
+
+            return new List<ISentence>(newTextSentences);
         }
 
         public ISentence RemoveWordsFromSentence(ISentence sentence, Predicate<IWord> predicate)
         {
-            var sentenceElementsForNewSentence = new List<ISentenceElement>();
-
-            var needToWriteSeparator = true;
-            foreach (var sentenceElement in sentence.SentenceElements)
+            var newSentenceElements = sentence.SentenceElements.ToList();
+            var matchingWords = newSentenceElements.OfType<IWord>().ToList().FindAll(predicate);
+            if (matchingWords.Any())
             {
-                if (sentenceElement is IWord word && predicate(word))
+                foreach (var element in matchingWords)
                 {
-                    needToWriteSeparator = false;
-                }
-                else if (sentenceElement == sentence.SentenceElements.Last())
-                {
-                    //sentenceElementsForNewSentence.Remove(sentenceElementsForNewSentence.Last());
-                    sentenceElementsForNewSentence.Add(sentenceElement);
-                }
-                else
-                {
-                    if (needToWriteSeparator)
-                    {
-                        sentenceElementsForNewSentence.Add(sentenceElement);
-                    }
-                    else
-                    {
-                        needToWriteSeparator = true;
-                    }
+                    var index = newSentenceElements.IndexOf(element);
+
+                    if (index == newSentenceElements.Count - 2 && index > 0) index--;
+
+                    newSentenceElements.Remove(element);
+
+                    if (newSentenceElements.Count > 1) newSentenceElements.RemoveAt(index);
                 }
             }
 
-            return new Sentence(sentenceElementsForNewSentence);
+            return new Sentence(newSentenceElements);
         }
 
-        public ICollection<T> SelectElements<T>(ISentence sentence, Func<T, bool> selector = null) where T : ISentenceElement
+        public ICollection<T> SelectElements<T>(ISentence sentence, Func<T, bool> selector = null)
+            where T : ISentenceElement
         {
             return selector == null
                 ? sentence.SentenceElements.OfType<T>().ToList()
