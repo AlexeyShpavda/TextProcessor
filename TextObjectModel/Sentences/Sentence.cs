@@ -66,7 +66,7 @@ namespace TextObjectModel.Sentences
         {
             //SentenceTypes.Clear();
 
-            ICollection<SentenceType> sentenceTypes = new List<SentenceType>();
+            ICollection<SentenceType> sentenceTypes = new Collection<SentenceType>();
 
             var lastSeparator = _sentenceElements.Last() as ISeparator;
 
@@ -75,14 +75,14 @@ namespace TextObjectModel.Sentences
                 sentenceTypes.Add(SentenceType.InterrogativeSentence);
             }
 
-            if (lastSeparator != null && lastSeparator.IsDeclarativeMark())
-            {
-                sentenceTypes.Add(SentenceType.DeclarativeSentence);
-            }
-
             if (lastSeparator != null && lastSeparator.IsExclamationMark())
             {
                 sentenceTypes.Add(SentenceType.ExclamatorySentence);
+            }
+
+            if (lastSeparator != null && lastSeparator.IsDeclarativeMark())
+            {
+                sentenceTypes.Add(SentenceType.DeclarativeSentence);
             }
 
             SentenceTypes = sentenceTypes;

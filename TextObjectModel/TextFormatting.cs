@@ -15,14 +15,14 @@ namespace TextObjectModel
             return selector == null ? text.Sentences : text.Sentences.Where(selector).ToList();
         }
 
-        public ICollection<ISentence> SortSentencesAscending<T>(IText text) where T : ISentenceElement
+        public IOrderedEnumerable<ISentence> SortSentencesAscending<T>(IText text) where T : ISentenceElement
         {
-            return text.Sentences.OrderBy(x => x.SentenceElements.Count).ToList();
+            return text.Sentences.OrderBy(x => x.GetElements<T>().Count);
         }
 
-        public ICollection<ISentence> SortSentencesDescending<T>(IText text) where T : ISentenceElement
+        public IOrderedEnumerable<ISentence> SortSentencesDescending<T>(IText text) where T : ISentenceElement
         {
-            return text.Sentences.OrderByDescending(x => x.SentenceElements.Count).ToList();
+            return text.Sentences.OrderByDescending(x => x.GetElements<T>().Count);
         }
 
         public IEnumerable<IWord> GetWordsFromSentences(IText text, SentenceType sentenceType, int wordLength)
