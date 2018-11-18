@@ -19,7 +19,7 @@ namespace UserInterface
                 var xmlFilesPath = ConfigurationManager.AppSettings["xmlFilesPath"];
 
                 var txtInputFilePath = $"{txtFilesPath}1.txt";
-                var xmlOutputFilePath = $"{txtFilesPath}1.xml";
+                var xmlOutputFilePath = $"{xmlFilesPath}1.xml";
 
                 IText text;
 
@@ -72,7 +72,6 @@ namespace UserInterface
 
                 foreach (var sentence in text.Sentences)
                 {
-                    sentence.SentenceUpdate(textParser.Parse(sentence.ToString()));
                     Console.WriteLine(sentence);
                 }
 
@@ -102,18 +101,18 @@ namespace UserInterface
 
                 //text = Text.ReadFromXmlFile(xmlOutputFilePath);
             }
-            //catch (ArgumentException argumentException)
-            //{
-            //    Console.WriteLine(argumentException.Message);
-            //}
-            //catch (IOException ioException)
-            //{
-            //    Console.WriteLine(ioException.Message);
-            //}
-            //catch (Exception exception)
-            //{
-            //    Console.WriteLine(exception.Message);
-            //}
+            catch (ArgumentException argumentException)
+            {
+                Console.WriteLine(argumentException.Message);
+            }
+            catch (IOException ioException)
+            {
+                Console.WriteLine(ioException.Message);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
             finally
             {
                 Console.ReadKey();

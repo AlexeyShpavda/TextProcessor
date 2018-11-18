@@ -57,8 +57,6 @@ namespace TextObjectModel.Sentences
 
         public void GetSentenceTypes()
         {
-            //SentenceTypes.Clear();
-
             ICollection<SentenceType> sentenceTypes = new Collection<SentenceType>();
 
             var lastSeparator = _sentenceElements.Last() as ISeparator;
@@ -86,11 +84,6 @@ namespace TextObjectModel.Sentences
             TypeOfComplicatingStructures = _sentenceElements.OfType<ISeparator>().Any(x => x.IsWordSeparationMark())
                 ? TypeOfComplicatingStructures.ComplicatedSentence
                 : TypeOfComplicatingStructures.UncomplicatedSentence;
-        }
-
-        public void SentenceUpdate(ICollection<ISentenceElement> sentenceElements)
-        {
-            SentenceElements = sentenceElements;
         }
 
         public override string ToString()

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences.Enums;
 
@@ -12,7 +11,5 @@ namespace Interfaces.TextObjectModel.Sentences
         ICollection<SentenceType> SentenceTypes { get; }
 
         TypeOfComplicatingStructures TypeOfComplicatingStructures { get; }
-
-        void SentenceUpdate(ICollection<ISentenceElement> sentenceElements);
     }
 }

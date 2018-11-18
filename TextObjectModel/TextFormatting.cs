@@ -34,9 +34,16 @@ namespace TextObjectModel
 
         public void DeleteWordsStartingWithConsonant(IText text, int wordLength)
         {
-            foreach (var sentence in text.Sentences)
+            var newSentences = text.Sentences.Select(x =>
+                RemoveWordsFromSentence(x, y => y.Length == wordLength && y.StartWithConsonant()));
+
+            newSentences = newSentences
+                .Where(x => x.SentenceElements.OfType<IWord>().Any() && x.SentenceElements.Count > 0).ToList();
+
+            text.Sentences.Clear();
+            foreach (var sentence in newSentences)
             {
-                RemoveFromSentence<IWord>(sentence, x => x.Length == wordLength && x.StartWithConsonant());
+                text.Sentences.Add(sentence);
             }
         }
 
@@ -57,6 +64,7 @@ namespace TextObjectModel
             {
                 if (sentenceElement is ISeparator separator && separator.IsSentenceSeparationMark())
                 {
+                    elementsForOneNewSentence.Add(sentenceElement);
                     sentences.Add(new Sentence(elementsForOneNewSentence.ToList()));
                     elementsForOneNewSentence.Clear();
                 }
@@ -73,7 +81,7 @@ namespace TextObjectModel
             sentences.Add(new Sentence(elementsForOneNewSentence.ToList()));
 
             text.Sentences.RemoveAt(sentenceIndex);
-            text.Sentences.RemoveAt(nextSentenceIndex);
+            text.Sentences.RemoveAt(sentenceIndex);
 
             AddSentencesToTextByIndex(text, sentenceIndex, sentences);
         }
@@ -111,7 +119,14 @@ namespace TextObjectModel
                 }
             }
 
-            return newSentenceElements.ToList();
+            if (newSentenceElements.Count != 0)
+            {
+                return newSentenceElements.ToList(); 
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public void AddSentencesToTextByIndex(IText text, int sentenceIndex, ICollection<ISentence> sentences)
@@ -125,9 +140,36 @@ namespace TextObjectModel
             }
         }
 
-        public void RemoveFromSentence<T>(ISentence sentence, Predicate<T> predicate) where T : ISentenceElement
+        public ISentence RemoveWordsFromSentence(ISentence sentence, Predicate<IWord> predicate)
         {
-            sentence.SentenceUpdate(sentence.SentenceElements.Where(x => !(x is T t && predicate(t))).ToList());
+            var sentenceElementsForNewSentence = new List<ISentenceElement>();
+
+            var needToWriteSeparator = true;
+            foreach (var sentenceElement in sentence.SentenceElements)
+            {
+                if (sentenceElement is IWord word && predicate(word))
+                {
+                    needToWriteSeparator = false;
+                }
+                else if (sentenceElement == sentence.SentenceElements.Last())
+                {
+                    //sentenceElementsForNewSentence.Remove(sentenceElementsForNewSentence.Last());
+                    sentenceElementsForNewSentence.Add(sentenceElement);
+                }
+                else
+                {
+                    if (needToWriteSeparator)
+                    {
+                        sentenceElementsForNewSentence.Add(sentenceElement);
+                    }
+                    else
+                    {
+                        needToWriteSeparator = true;
+                    }
+                }
+            }
+
+            return new Sentence(sentenceElementsForNewSentence);
         }
 
         public ICollection<T> SelectElements<T>(ISentence sentence, Func<T, bool> selector = null) where T : ISentenceElement
