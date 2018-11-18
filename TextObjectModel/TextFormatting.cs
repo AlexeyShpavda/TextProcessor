@@ -17,12 +17,12 @@ namespace TextObjectModel
 
         public IOrderedEnumerable<ISentence> SortSentencesAscending<T>(IText text) where T : ISentenceElement
         {
-            return text.Sentences.OrderBy(x => x.GetElements<T>().Count);
+            return text.Sentences.OrderBy(x => SelectElements<T>(x).Count);
         }
 
         public IOrderedEnumerable<ISentence> SortSentencesDescending<T>(IText text) where T : ISentenceElement
         {
-            return text.Sentences.OrderByDescending(x => x.GetElements<T>().Count);
+            return text.Sentences.OrderByDescending(x => SelectElements<T>(x).Count);
         }
 
         public IEnumerable<IWord> GetWordsFromSentences(IText text, SentenceType sentenceType, int wordLength)

@@ -13,8 +13,6 @@ namespace Interfaces.TextObjectModel.Sentences
 
         TypeOfComplicatingStructures TypeOfComplicatingStructures { get; }
 
-        ICollection<T> GetElements<T>(Func<T, bool> selector = null) where T : ISentenceElement;
-
         void SentenceUpdate(ICollection<ISentenceElement> sentenceElements);
     }
 }

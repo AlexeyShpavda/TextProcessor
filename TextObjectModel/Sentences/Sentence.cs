@@ -55,13 +55,6 @@ namespace TextObjectModel.Sentences
             SentenceElements = sentenceElements;
         }
 
-        public ICollection<T> GetElements<T>(Func<T, bool> selector = null) where T : ISentenceElement
-        {
-            return selector == null
-                ? SentenceElements.OfType<T>().ToList()
-                : SentenceElements.OfType<T>().Where(selector).ToList();
-        }
-
         public void GetSentenceTypes()
         {
             //SentenceTypes.Clear();
