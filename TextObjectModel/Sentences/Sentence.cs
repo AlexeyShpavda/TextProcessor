@@ -73,7 +73,7 @@ namespace TextObjectModel.Sentences
                 sentenceTypes.Add(SentenceType.ExclamatorySentence);
             }
 
-            if (lastSeparator != null && lastSeparator.IsDeclarativeMark())
+            if (lastSeparator != null && sentenceTypes.Count == 0)
             {
                 sentenceTypes.Add(SentenceType.DeclarativeSentence);
             }
@@ -83,7 +83,7 @@ namespace TextObjectModel.Sentences
 
         public void GetTypeOfComplicatingStructures()
         {
-            TypeOfComplicatingStructures = _sentenceElements.OfType<ISeparator>().Any(x => x.IsWordSeparator())
+            TypeOfComplicatingStructures = _sentenceElements.OfType<ISeparator>().Any(x => x.IsWordSeparationMark())
                 ? TypeOfComplicatingStructures.ComplicatedSentence
                 : TypeOfComplicatingStructures.UncomplicatedSentence;
         }

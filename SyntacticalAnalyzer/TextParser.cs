@@ -29,18 +29,19 @@ namespace SyntacticalAnalyzer
             {
                 fileLine = strBuffer + Regex.Replace(fileLine, "[\f\n\r\t\v]", " ");
 
-                var strSentences = Regex.Split(fileLine, _sentencesSeparationPattern);
+                var strSentences = Regex.Split(fileLine, _sentencesSeparationPattern)
+                    .Select(x => string.Concat(x, " "));
 
                 foreach (var strSentence in strSentences)
                 {
-                    if (Separator.SentenceSeparators.Any(x => strSentence.EndsWith(x)))
+                    if (Separator.SentenceSeparationMarks.Any(x => strSentence.EndsWith(x)))
                     {
                         sentences.Add(new Sentence(Parse(strSentence)));
                         strBuffer = string.Empty;
                     }
                     else
                     {
-                        strBuffer = string.Concat(strSentence, " ");
+                        strBuffer = strSentence;
                     }
                 }
             }

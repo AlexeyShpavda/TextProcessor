@@ -2,9 +2,10 @@
 {
     public interface ISeparator : ISentenceElement
     {
-        bool IsWordSeparator();
+        bool IsSpaceMark();
+        bool IsWordSeparationMark();
+        bool IsSentenceSeparationMark();
         bool IsExclamationMark();
         bool IsQuestionMark();
-        bool IsDeclarativeMark();
     }
 }

@@ -7,9 +7,11 @@ namespace TextObjectModel.SentenceElements
     [DataContract(Namespace = "")]
     public class Separator : ISeparator
     {
-        public static string[] SentenceSeparators { get; } = {"...", "!", ".", "?", "?!", "!?"};
+        public static string Space { get; } = " ";
 
-        public static string[] WordSeparators { get; } = {",", ";", ":"};
+        public static string[] WordSeparationMarks { get; } = {", ", "; ", ": "};
+
+        public static string[] SentenceSeparationMarks { get; } = {"... ", "! ", ". ", "? ", "?! ", "!? "};
 
         [DataMember]
         public string Chars { get; set; }
@@ -24,9 +26,19 @@ namespace TextObjectModel.SentenceElements
             Chars = str;
         }
 
-        public bool IsWordSeparator()
+        public bool IsSpaceMark()
         {
-            return WordSeparators.Any(x => Chars.Contains(x));
+            return Chars.Equals(Space);
+        }
+
+        public bool IsWordSeparationMark()
+        {
+            return WordSeparationMarks.Any(x => Chars.Equals(x));
+        }
+
+        public bool IsSentenceSeparationMark()
+        {
+            return SentenceSeparationMarks.Any(x => Chars.Equals(x));
         }
 
         public bool IsExclamationMark()
@@ -37,11 +49,6 @@ namespace TextObjectModel.SentenceElements
         public bool IsQuestionMark()
         {
             return Chars.Contains('?');
-        }
-
-        public bool IsDeclarativeMark()
-        {
-            return Chars.Contains('.');
         }
 
         public override string ToString()

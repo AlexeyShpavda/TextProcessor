@@ -53,7 +53,8 @@ namespace UserInterface
                 #region Realization
 
                 var wordLengthForSecondTask = 5;
-                var wordsForSecondTask = textFormatting.GetWordsFromSentences(text, SentenceType.InterrogativeSentence, wordLengthForSecondTask);
+                var wordsForSecondTask = textFormatting.GetWordsFromSentences(text, SentenceType.InterrogativeSentence,
+                    wordLengthForSecondTask);
 
                 foreach (var word in wordsForSecondTask)
                 {
@@ -82,13 +83,13 @@ namespace UserInterface
                 #region Realization
 
                 var sentenceNumberForFourthTask = 1;
-                var wordLengthForFourthTask = 4;
-                var substringForFourthTask = "peck, beak        peck";
+                var wordLengthForFourthTask = 7;
+                var substringForFourthTask = "peck. beak.        peck,";
 
                 textFormatting.ReplacesWordsInSentenceWithSubstring(text, sentenceNumberForFourthTask,
                     wordLengthForFourthTask, textParser.Parse(substringForFourthTask));
-                text.Sentences[sentenceNumberForFourthTask - 1].SentenceUpdate(
-                    textParser.Parse(text.Sentences[sentenceNumberForFourthTask - 1].ToString()));
+                //text.Sentences[sentenceNumberForFourthTask - 1].SentenceUpdate(
+                //    textParser.Parse(text.Sentences[sentenceNumberForFourthTask - 1].ToString()));
 
                 foreach (var sentence in text.Sentences)
                 {
@@ -101,18 +102,18 @@ namespace UserInterface
 
                 //text = Text.ReadFromXmlFile(xmlOutputFilePath);
             }
-            catch (ArgumentException argumentException)
-            {
-                Console.WriteLine(argumentException.Message);
-            }
-            catch (IOException ioException)
-            {
-                Console.WriteLine(ioException.Message);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-            }
+            //catch (ArgumentException argumentException)
+            //{
+            //    Console.WriteLine(argumentException.Message);
+            //}
+            //catch (IOException ioException)
+            //{
+            //    Console.WriteLine(ioException.Message);
+            //}
+            //catch (Exception exception)
+            //{
+            //    Console.WriteLine(exception.Message);
+            //}
             finally
             {
                 Console.ReadKey();
