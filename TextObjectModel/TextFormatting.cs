@@ -55,18 +55,13 @@ namespace TextObjectModel
 
             foreach (var sentenceElement in elementsForNewSentences)
             {
-                if (sentenceElement is ISeparator separator && separator.IsSentenceSeparationMark())
-                {
-                    elementsForOneNewSentence.Add(sentenceElement);
+                elementsForOneNewSentence.Add(sentenceElement);
 
-                    sentencesForNewText.Add(new Sentence(elementsForOneNewSentence.ToList()));
+                if (!(sentenceElement is ISeparator separator) || !separator.IsSentenceSeparationMark()) continue;
 
-                    elementsForOneNewSentence.Clear();
-                }
-                else
-                {
-                    elementsForOneNewSentence.Add(sentenceElement);
-                }
+                sentencesForNewText.Add(new Sentence(elementsForOneNewSentence.ToList()));
+
+                elementsForOneNewSentence.Clear();
             }
 
             if (elementsForOneNewSentence.Count == 0)
