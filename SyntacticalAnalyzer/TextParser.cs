@@ -27,7 +27,7 @@ namespace SyntacticalAnalyzer
             string fileLine;
             while ((fileLine = streamReader.ReadLine()) != null)
             {
-                fileLine = strBuffer + Regex.Replace(fileLine, "[\f\n\r\t\v]", " ");
+                fileLine = strBuffer + Regex.Replace(fileLine, @"\s+", " ");
 
                 var strSentences = Regex.Split(fileLine, _sentencesSeparationPattern)
                     .Select(x => string.Concat(x, " "));
@@ -36,7 +36,11 @@ namespace SyntacticalAnalyzer
                 {
                     if (Separator.SentenceSeparationMarks.Any(x => strSentence.EndsWith(x)))
                     {
-                        sentences.Add(new Sentence(Parse(strSentence)));
+                        var elementsForNewSentence = Parse(strSentence);
+                        if (IsItPossibleToCreateSentence(elementsForNewSentence))
+                        {
+                            sentences.Add(new Sentence(elementsForNewSentence));
+                        }
                         strBuffer = string.Empty;
                     }
                     else
@@ -48,7 +52,11 @@ namespace SyntacticalAnalyzer
 
             if (strBuffer != string.Empty)
             {
-                sentences.Add(new Sentence(Parse(strBuffer)));
+                var elementsForNewSentence = Parse(strBuffer);
+                if (IsItPossibleToCreateSentence(elementsForNewSentence))
+                {
+                    sentences.Add(new Sentence(elementsForNewSentence));
+                }
                 //throw new Exception("There is no punctuation mark at the end of the text.");
             }
 
@@ -69,6 +77,11 @@ namespace SyntacticalAnalyzer
             }
 
             return sentenceElements;
+        }
+
+        private static bool IsItPossibleToCreateSentence(ICollection<ISentenceElement> sentenceElements)
+        {
+            return sentenceElements.OfType<IWord>().Any() && sentenceElements.OfType<ISeparator>().Any();
         }
     }
 }
