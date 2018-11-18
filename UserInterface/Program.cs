@@ -18,7 +18,7 @@ namespace UserInterface
                 var txtFilesPath = ConfigurationManager.AppSettings["txtFilesPath"];
                 var xmlFilesPath = ConfigurationManager.AppSettings["xmlFilesPath"];
 
-                var txtInputFilePath = $"{txtFilesPath}1.txt";
+                var txtInputFilePath = $"{txtFilesPath}3Lines.txt";
                 var xmlOutputFilePath = $"{xmlFilesPath}1.xml";
 
                 IText text;

@@ -15,9 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{7AED3C68
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TXT Files", "TXT Files", "{A823251D-7987-46F7-A2E5-B871B67861FB}"
 	ProjectSection(SolutionItems) = preProject
-		Files\TXT Files\1.txt = Files\TXT Files\1.txt
-		Files\TXT Files\2.txt = Files\TXT Files\2.txt
-		Files\TXT Files\3.txt = Files\TXT Files\3.txt
+		Files\TXT Files\2000Lines.txt = Files\TXT Files\2000Lines.txt
+		Files\TXT Files\3Lines.txt = Files\TXT Files\3Lines.txt
+		Files\TXT Files\500Lines.txt = Files\TXT Files\500Lines.txt
+		Files\TXT Files\8Lines.txt = Files\TXT Files\8Lines.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XML Files", "XML Files", "{B0041477-DCED-473B-ABD1-CB5BB71F9D48}"
