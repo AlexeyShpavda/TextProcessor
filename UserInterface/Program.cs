@@ -35,6 +35,7 @@ namespace UserInterface
                 Console.WriteLine("<==================== Initial Text ====================>");
                 Console.WriteLine(text);
 
+                // Print all sentences of text in increasing order of number of words in each of them.
                 Console.WriteLine("<======================= Task1 ========================>");
 
                 #region Realization
@@ -48,6 +49,7 @@ namespace UserInterface
 
                 #endregion
 
+                // In all interrogative sentences of text, find and print without repeating words of a given length.
                 Console.WriteLine("<======================= Task2 ========================>");
 
                 #region Realization
@@ -63,6 +65,7 @@ namespace UserInterface
 
                 #endregion
 
+                // Remove from text all words of a given length beginning with a consonant letter.
                 Console.WriteLine("<======================= Task3 ========================>");
 
                 #region Realization
@@ -77,12 +80,13 @@ namespace UserInterface
 
                 #endregion
 
+                // In some sentence of text, word of a given length replace with the specified substring.
                 Console.WriteLine("<======================= Task4 ========================>");
 
                 #region Realization
 
                 var sentenceNumberForFourthTask = 1;
-                var wordLengthForFourthTask = 7;
+                var wordLengthForFourthTask = 6;
                 var substringForFourthTask = "peck. beak.        peck,";
 
                 text = textFormatting.ReplacesWordsInSentenceWithSubstring(text, sentenceNumberForFourthTask,
