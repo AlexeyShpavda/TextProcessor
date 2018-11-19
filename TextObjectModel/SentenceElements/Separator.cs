@@ -13,6 +13,13 @@ namespace TextObjectModel.SentenceElements
 
         public static string[] SentenceSeparationMarks { get; } = {"... ", "! ", ". ", "? ", "?! ", "!? "};
 
+        public static string[] AllSentenceSeparators { get; } = {
+            ", ", ". ", "! ", "? ", "— ", "- ", "' ", "( ", ") ",
+            "< ", "> ", ": ", "; ", "[ ", "] ", "{ ", "} ", "‒ ", "– ", "— ",
+            "― ", "„ ", "“ ", "« ", "» ", "‘ ", "’ ", "... ", "?! ", "!? ",
+            "* ", "/ ", "= ", "== ", "!= ", ">= ", "=< ", "+ ", " "
+        };
+
         public Separator(string str) : base(str)
         {
             Chars = str;

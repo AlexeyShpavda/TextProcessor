@@ -6,13 +6,6 @@ namespace TextObjectModel.SentenceElements
 {
     public class SentenceElementFactory
     {
-        private static string[] AllSentenceSeparators { get; } = {
-            ", ", ". ", "! ", "? ", "— ", "- ", "' ", "( ", ") ",
-            "< ", "> ", ": ", "; ", "[ ", "] ", "{ ", "} ", "‒ ", "– ", "— ",
-            "― ", "„ ", "“ ", "« ", "» ", "‘ ", "’ ", "... ", "?! ", "!? ",
-            "* ", "/ ", "= ", "== ", "!= ", ">= ", "=< ", "+ ", " "
-        };
-
         private readonly IDictionary<string, ISentenceElement> _sentenceElements =
             new Dictionary<string, ISentenceElement>();
 
@@ -25,7 +18,7 @@ namespace TextObjectModel.SentenceElements
             }
             else
             {
-                if (AllSentenceSeparators.Contains(key))
+                if (Separator.AllSentenceSeparators.Contains(key))
                 {
                     sentenceElement = new Separator(key);
                 }
