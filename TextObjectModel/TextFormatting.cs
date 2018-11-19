@@ -53,15 +53,19 @@ namespace TextObjectModel
             elementsForNewSentences.AddRange(ReplaceWord(text.Sentences[sentenceIndex],
                 x => x.Length == wordLength, sentenceElements));
 
-            foreach (var sentenceElement in elementsForNewSentences)
+            // If it is true, then no words were found for deletion.
+            if (text.Sentences[sentenceIndex].SentenceElements.Count != elementsForNewSentences.Count)
             {
-                elementsForOneNewSentence.Add(sentenceElement);
+                foreach (var sentenceElement in elementsForNewSentences)
+                {
+                    elementsForOneNewSentence.Add(sentenceElement);
 
-                if (!(sentenceElement is ISeparator separator) || !separator.IsSentenceSeparationMark()) continue;
+                    if (!(sentenceElement is ISeparator separator) || !separator.IsSentenceSeparationMark()) continue;
 
-                sentencesForNewText.Add(new Sentence(elementsForOneNewSentence.ToList()));
+                    sentencesForNewText.Add(new Sentence(elementsForOneNewSentence.ToList()));
 
-                elementsForOneNewSentence.Clear();
+                    elementsForOneNewSentence.Clear();
+                }
             }
 
             if (elementsForOneNewSentence.Count == 0)

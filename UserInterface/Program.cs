@@ -86,7 +86,7 @@ namespace UserInterface
                 #region Realization
 
                 var sentenceNumberForFourthTask = 1;
-                var wordLengthForFourthTask = 6;
+                var wordLengthForFourthTask = 7;
                 var substringForFourthTask = "peck. beak.        peck,";
 
                 text = textFormatting.ReplacesWordsInSentenceWithSubstring(text, sentenceNumberForFourthTask,
