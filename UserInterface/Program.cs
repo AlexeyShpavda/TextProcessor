@@ -27,6 +27,7 @@ namespace UserInterface
 
                 using (var streamReader = new StreamReader(txtInputFilePath))
                 {
+                    // Replace tabs and spaces with one space during parsing.
                     text = textParser.Parse(streamReader);
                 }
 
@@ -103,18 +104,18 @@ namespace UserInterface
 
                 //text = Text.ReadFromXmlFile(xmlOutputFilePath);
             }
-            catch (ArgumentException argumentException)
-            {
-                Console.WriteLine(argumentException.Message);
-            }
-            catch (IOException ioException)
-            {
-                Console.WriteLine(ioException.Message);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-            }
+            //catch (ArgumentException argumentException)
+            //{
+            //    Console.WriteLine(argumentException.Message);
+            //}
+            //catch (IOException ioException)
+            //{
+            //    Console.WriteLine(ioException.Message);
+            //}
+            //catch (Exception exception)
+            //{
+            //    Console.WriteLine(exception.Message);
+            //}
             finally
             {
                 Console.ReadKey();
