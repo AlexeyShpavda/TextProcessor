@@ -6,11 +6,8 @@ using Interfaces.TextObjectModel.SentenceElements;
 namespace TextObjectModel.SentenceElements
 {
     [DataContract(Namespace = "")]
-    public class Word : IWord
+    public class Word : SentenceElement, IWord
     {
-        [DataMember]
-        public string Chars { get; set; }
-
         public int Length => Chars.Length;
 
         public Word()

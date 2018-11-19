@@ -5,16 +5,13 @@ using Interfaces.TextObjectModel.SentenceElements;
 namespace TextObjectModel.SentenceElements
 {
     [DataContract(Namespace = "")]
-    public class Separator : ISeparator
+    public class Separator : SentenceElement, ISeparator
     {
         public static string Space { get; } = " ";
 
         public static string[] WordSeparationMarks { get; } = {", ", "; ", ": "};
 
         public static string[] SentenceSeparationMarks { get; } = {"... ", "! ", ". ", "? ", "?! ", "!? "};
-
-        [DataMember]
-        public string Chars { get; set; }
 
         public Separator()
         {
