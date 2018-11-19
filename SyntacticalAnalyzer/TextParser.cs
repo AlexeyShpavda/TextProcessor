@@ -69,11 +69,12 @@ namespace SyntacticalAnalyzer
 
             ICollection<ISentenceElement> sentenceElements = new Collection<ISentenceElement>();
 
+            SentenceElementFactory sentenceElementFactory = new SentenceElementFactory();
             foreach (Match match in Regex.Matches(line, _wordSeparationPattern))
             {
-                sentenceElements.Add(new Word(match.Groups[1].ToString()));
+                sentenceElements.Add(sentenceElementFactory.GetCharacter(match.Groups[1].ToString()));
 
-                sentenceElements.Add(new Separator(match.Groups[2].ToString()));
+                sentenceElements.Add(sentenceElementFactory.GetCharacter(match.Groups[2].ToString()));
             }
 
             return sentenceElements;

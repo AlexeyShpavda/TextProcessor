@@ -10,12 +10,7 @@ namespace TextObjectModel.SentenceElements
     {
         public int Length => Chars.Length;
 
-        public Word()
-        {
-            Chars = string.Empty;
-        }
-
-        public Word(string str)
+        public Word(string str) : base(str)
         {
             Chars = str;
         }

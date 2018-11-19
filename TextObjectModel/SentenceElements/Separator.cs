@@ -13,12 +13,7 @@ namespace TextObjectModel.SentenceElements
 
         public static string[] SentenceSeparationMarks { get; } = {"... ", "! ", ". ", "? ", "?! ", "!? "};
 
-        public Separator()
-        {
-            Chars = string.Empty;
-        }
-
-        public Separator(string str)
+        public Separator(string str) : base(str)
         {
             Chars = str;
         }

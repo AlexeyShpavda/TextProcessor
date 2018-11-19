@@ -8,5 +8,10 @@ namespace TextObjectModel.SentenceElements
     {
         [DataMember]
         public string Chars { get; set; }
+
+        protected SentenceElement(string str)
+        {
+            Chars = str;
+        }
     }
 }
