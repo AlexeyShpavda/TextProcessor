@@ -85,7 +85,7 @@ namespace TextObjectModel
             ICollection<ISentenceElement> sentenceElements)
         {
             var newSentenceElements = sentence.SentenceElements.ToList();
-            var matchingWords = newSentenceElements.OfType<IWord>().ToList().FindAll(predicate);
+            var matchingWords = GetMatchingElements(newSentenceElements, predicate);
             if (matchingWords.Any())
             {
                 foreach (var element in matchingWords)
@@ -116,7 +116,7 @@ namespace TextObjectModel
         public ISentence RemoveWordsFromSentence(ISentence sentence, Predicate<IWord> predicate)
         {
             var newSentenceElements = sentence.SentenceElements.ToList();
-            var matchingWords = newSentenceElements.OfType<IWord>().ToList().FindAll(predicate);
+            var matchingWords = GetMatchingElements(newSentenceElements, predicate);
             if (matchingWords.Any())
             {
                 foreach (var element in matchingWords)
@@ -140,6 +140,11 @@ namespace TextObjectModel
             return selector == null
                 ? sentence.SentenceElements.OfType<T>().ToList()
                 : sentence.SentenceElements.OfType<T>().Where(selector).ToList();
+        }
+
+        public IList<T>GetMatchingElements<T>(IList<ISentenceElement> sentenceElements, Predicate<T> predicate)
+        {
+            return sentenceElements.OfType<T>().ToList().FindAll(predicate);
         }
     }
 }
