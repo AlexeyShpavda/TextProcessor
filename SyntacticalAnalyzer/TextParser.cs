@@ -21,7 +21,7 @@ namespace SyntacticalAnalyzer
 
         public IText Parse(StreamReader streamReader)
         {
-            IList<ISentence> sentences = new List<ISentence>();
+            var sentences = new List<ISentence>();
             var strBuffer = string.Empty;
 
             string fileLine;
@@ -67,7 +67,7 @@ namespace SyntacticalAnalyzer
         {
             var line = string.Concat(inputLine, " ");
 
-            ICollection<ISentenceElement> sentenceElements = new Collection<ISentenceElement>();
+            var sentenceElements = new Collection<ISentenceElement>();
 
             var sentenceElementFactory = new SentenceElementFactory();
             foreach (Match match in Regex.Matches(line, _wordSeparationPattern))
