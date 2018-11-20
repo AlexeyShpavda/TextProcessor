@@ -18,7 +18,7 @@ namespace TextObjectModel.SentenceElements
             }
             else
             {
-                if (Separator.AllSentenceSeparators.Contains(key))
+                if (SeparatorConstants.AllSentenceSeparators.Contains(key))
                 {
                     sentenceElement = new Separator(key);
                 }

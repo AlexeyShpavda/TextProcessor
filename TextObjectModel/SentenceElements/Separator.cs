@@ -7,19 +7,6 @@ namespace TextObjectModel.SentenceElements
     [DataContract(Namespace = "")]
     public class Separator : SentenceElement, ISeparator
     {
-        public static string Space { get; } = " ";
-
-        public static string[] WordSeparationMarks { get; } = {", ", "; ", ": "};
-
-        public static string[] SentenceSeparationMarks { get; } = {"... ", "! ", ". ", "? ", "?! ", "!? "};
-
-        public static string[] AllSentenceSeparators { get; } = {
-            ", ", ". ", "! ", "? ", "— ", "- ", "' ", "( ", ") ",
-            "< ", "> ", ": ", "; ", "[ ", "] ", "{ ", "} ", "‒ ", "– ", "— ",
-            "― ", "„ ", "“ ", "« ", "» ", "‘ ", "’ ", "... ", "?! ", "!? ",
-            "* ", "/ ", "= ", "== ", "!= ", ">= ", "=< ", "+ ", " "
-        };
-
         public Separator(string str) : base(str)
         {
             Chars = str;
@@ -27,17 +14,17 @@ namespace TextObjectModel.SentenceElements
 
         public bool IsSpaceMark()
         {
-            return Chars.Equals(Space);
+            return Chars.Equals(SeparatorConstants.Space);
         }
 
         public bool IsWordSeparationMark()
         {
-            return WordSeparationMarks.Any(x => Chars.Equals(x));
+            return SeparatorConstants.WordSeparationMarks.Any(x => Chars.Equals(x));
         }
 
         public bool IsSentenceSeparationMark()
         {
-            return SentenceSeparationMarks.Any(x => Chars.Equals(x));
+            return SeparatorConstants.SentenceSeparationMarks.Any(x => Chars.Equals(x));
         }
 
         public bool IsExclamationMark()

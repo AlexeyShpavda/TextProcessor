@@ -34,7 +34,7 @@ namespace SyntacticalAnalyzer
 
                 foreach (var strSentence in strSentences)
                 {
-                    if (Separator.SentenceSeparationMarks.Any(x => strSentence.EndsWith(x)))
+                    if (SeparatorConstants.SentenceSeparationMarks.Any(x => strSentence.EndsWith(x)))
                     {
                         var elementsForNewSentence = Parse(strSentence);
                         if (IsItPossibleToCreateSentence(elementsForNewSentence))
