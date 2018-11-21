@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyntacticalAnalyzer\ITextParser.cs" />
+    <Compile Include="TextObjectModel\SentenceElements\ISentenceElementFactory.cs" />
     <Compile Include="TextObjectModel\SentenceElements\ISeparator.cs" />
     <Compile Include="TextObjectModel\SentenceElements\IWord.cs" />
     <Compile Include="TextObjectModel\Sentences\Enums\SentenceType.cs" />

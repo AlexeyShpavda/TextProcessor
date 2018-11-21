@@ -4,7 +4,7 @@ using Interfaces.TextObjectModel.SentenceElements;
 
 namespace TextObjectModel.SentenceElements
 {
-    public class SentenceElementFactory
+    public class SentenceElementFactory : ISentenceElementFactory
     {
         private readonly IDictionary<string, ISentenceElement> _sentenceElements =
             new Dictionary<string, ISentenceElement>();
