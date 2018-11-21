@@ -9,7 +9,7 @@ namespace TextObjectModel.SentenceElements
         private readonly IDictionary<string, ISentenceElement> _sentenceElements =
             new Dictionary<string, ISentenceElement>();
 
-        public ISentenceElement GetCharacter(string key)
+        public ISentenceElement GetSentenceElement(string key)
         {
             ISentenceElement sentenceElement;
             if (_sentenceElements.ContainsKey(key))

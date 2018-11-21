@@ -72,9 +72,9 @@ namespace SyntacticalAnalyzer
             var sentenceElementFactory = new SentenceElementFactory();
             foreach (Match match in Regex.Matches(line, _wordSeparationPattern))
             {
-                sentenceElements.Add(sentenceElementFactory.GetCharacter(match.Groups[1].ToString()));
+                sentenceElements.Add(sentenceElementFactory.GetSentenceElement(match.Groups[1].ToString()));
 
-                sentenceElements.Add(sentenceElementFactory.GetCharacter(match.Groups[2].ToString()));
+                sentenceElements.Add(sentenceElementFactory.GetSentenceElement(match.Groups[2].ToString()));
             }
 
             return sentenceElements;
