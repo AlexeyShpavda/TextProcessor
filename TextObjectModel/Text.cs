@@ -19,14 +19,7 @@ namespace TextObjectModel
         [DataMember]
         public IList<ISentence> Sentences
         {
-            get
-            {
-                //_sentences = (from sentence in _sentences
-                //              where sentence.SentenceElements.Count != 0
-                //              select sentence).ToList();
-
-                return _sentences;
-            }
+            get => _sentences;
             private set
             {
                 if (value.Count == 0)
