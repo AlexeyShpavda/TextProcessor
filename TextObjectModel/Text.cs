@@ -50,30 +50,5 @@ namespace TextObjectModel
 
             return stringBuilder.ToString();
         }
-
-        public void SaveToXmlFile(string fileName)
-        {
-            using (var fileStream = new FileStream(fileName, FileMode.Create))
-            {
-                using (var xmlWriter = XmlWriter.Create(fileStream, new XmlWriterSettings {Indent = true}))
-                {
-                    var serializer = new DataContractSerializer(typeof(Text));
-                    serializer.WriteObject(xmlWriter, this);
-                }
-            }
-        }
-
-        public static Text ReadFromXmlFile(string fileName)
-        {
-            using (var fileStream = new FileStream(fileName, FileMode.Open))
-            {
-                using (var xmlDictionaryReader =
-                    XmlDictionaryReader.CreateTextReader(fileStream, new XmlDictionaryReaderQuotas()))
-                {
-                    var serializer = new DataContractSerializer(typeof(Text));
-                    return (Text) serializer.ReadObject(xmlDictionaryReader);
-                }
-            }
-        }
     }
 }

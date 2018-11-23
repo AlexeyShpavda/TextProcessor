@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Xml;
 using Interfaces.TextObjectModel;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences;
@@ -149,6 +152,31 @@ namespace TextObjectModel
         public IList<T>GetMatchingElements<T>(IList<ISentenceElement> sentenceElements, Predicate<T> predicate)
         {
             return sentenceElements.OfType<T>().ToList().FindAll(predicate);
+        }
+
+        public void SaveToXmlFile(IText text,string fileName)
+        {
+            using (var fileStream = new FileStream(fileName, FileMode.Create))
+            {
+                using (var xmlWriter = XmlWriter.Create(fileStream, new XmlWriterSettings { Indent = true }))
+                {
+                    var serializer = new DataContractSerializer(typeof(Text));
+                    serializer.WriteObject(xmlWriter, text);
+                }
+            }
+        }
+
+        public static Text ReadFromXmlFile(string fileName)
+        {
+            using (var fileStream = new FileStream(fileName, FileMode.Open))
+            {
+                using (var xmlDictionaryReader =
+                    XmlDictionaryReader.CreateTextReader(fileStream, new XmlDictionaryReaderQuotas()))
+                {
+                    var serializer = new DataContractSerializer(typeof(Text));
+                    return (Text)serializer.ReadObject(xmlDictionaryReader);
+                }
+            }
         }
     }
 }

@@ -100,9 +100,9 @@ namespace UserInterface
 
                 #endregion
 
-                //text.SaveToXmlFile(xmlOutputFilePath);
+                //textFormatting.SaveToXmlFile(text, xmlOutputFilePath);
 
-                //text = Text.ReadFromXmlFile(xmlOutputFilePath);
+                //text = TextFormatting.ReadFromXmlFile(xmlOutputFilePath);
             }
             catch (ArgumentException argumentException)
             {
