@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Xml;
 using Interfaces.TextObjectModel;
 using Interfaces.TextObjectModel.Sentences;
 using TextObjectModel.Sentences;
