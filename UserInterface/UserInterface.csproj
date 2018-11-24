@@ -45,6 +45,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
+      <Project>{853F3510-5524-4DA9-B481-707C8940FFEC}</Project>
+      <Name>BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">
       <Project>{d3ebd45d-e73a-48b0-86dd-614c2a776e38}</Project>
       <Name>Interfaces</Name>

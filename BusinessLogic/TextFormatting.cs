@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Runtime.Serialization;
 using System.Xml;
 using Interfaces.TextObjectModel;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences;
 using Interfaces.TextObjectModel.Sentences.Enums;
+using TextObjectModel;
 using TextObjectModel.Sentences;
 
-namespace TextObjectModel
+namespace BusinessLogic
 {
     public class TextFormatting
     {
@@ -160,7 +162,7 @@ namespace TextObjectModel
             {
                 using (var xmlWriter = XmlWriter.Create(fileStream, new XmlWriterSettings { Indent = true }))
                 {
-                    var serializer = new DataContractSerializer(typeof(Text));
+                    var serializer = new DataContractSerializer(typeof(MediaTypeNames.Text));
                     serializer.WriteObject(xmlWriter, text);
                 }
             }
@@ -173,7 +175,7 @@ namespace TextObjectModel
                 using (var xmlDictionaryReader =
                     XmlDictionaryReader.CreateTextReader(fileStream, new XmlDictionaryReaderQuotas()))
                 {
-                    var serializer = new DataContractSerializer(typeof(Text));
+                    var serializer = new DataContractSerializer(typeof(MediaTypeNames.Text));
                     return (Text)serializer.ReadObject(xmlDictionaryReader);
                 }
             }

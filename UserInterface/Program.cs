@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using BusinessLogic;
 using Interfaces.TextObjectModel;
 using Interfaces.TextObjectModel.SentenceElements;
 using Interfaces.TextObjectModel.Sentences.Enums;
 using SyntacticalAnalyzer;
-using TextObjectModel;
 
 namespace UserInterface
 {
